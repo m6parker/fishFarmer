@@ -40,7 +40,6 @@ body{
     border: 2px solid black;
     height: 200px;
     width: 100px;
-    background-color: rgb(125, 164, 177);
 }
 
 .aquarium.empty{
@@ -49,6 +48,7 @@ body{
 
 .aquarium:hover, .selected-tank{
     background-color: rgb(143, 143, 143);
+    border: 5px solid red;
 }
 
 .water-options{

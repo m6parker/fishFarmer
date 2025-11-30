@@ -2,7 +2,7 @@ class Tank {
     constructor(type, size, name) {
         this.type = type;
         this.size = size;
-        this.name = this.name;
+        this.name = name;
         this.fishes = [];
         this.element = this.makeTank();
     }

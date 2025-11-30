@@ -1,6 +1,8 @@
 const fishOptions = document.querySelectorAll('.fish-option');
 const buyButton = document.querySelector('.buy-button');
 let fishes = [];
+let filledAquariums = [];
+let tankCounter = 1;
 // place fish in the tank at random heights using the tanks boundaries
 function getRandomPositionHeight(){
     // console.log(rect)
@@ -55,7 +57,9 @@ const waterOptionContainer = document.querySelector('.water-options');
 const waterOptions = document.querySelectorAll('.water-option');
 aquariums.forEach(aquarium => {
     aquarium.addEventListener('click', ()=>{
+        unselectAllTanks();
         aquarium.classList.add('selected-tank');
+        console.log(aquarium)
         if(aquarium.classList.contains('empty')){
             waterOptionContainer.classList.remove('hidden');
         }else{
@@ -74,7 +78,7 @@ mapButton.addEventListener('click', ()=>{
 waterOptions.forEach(option => {
     console.log(option)
     option.addEventListener('click', ()=>{
-        unselectAllTanks();
+        unselectAllWater();
         option.classList.add('selected-water');
     });
 });
@@ -82,20 +86,27 @@ waterOptions.forEach(option => {
 document.querySelector('.fill-button').addEventListener('click', ()=>{
     const selectedWater = document.querySelector('.selected-water');
     const selectedTank = document.querySelector('.selected-tank');
+    const tankName = `tank${tankCounter}`;
+    tankCounter++;
     console.log('filled tank with ', selectedWater.textContent)
 
-    const newTank = new Tank(selectedWater.textContent, 20, 'tankOne');
+    const newTank = new Tank(selectedWater.textContent, 20, tankName);
     selectedTank.classList.remove('empty');
-    selectedTank.textContent = '';
+    selectedTank.textContent = newTank.name;
     selectedTank.classList.add(`${selectedWater.textContent}`)
+    filledAquariums.push(newTank.name);
 
-    waterOptionContainer.classList.add('hidden')
+    waterOptionContainer.classList.add('hidden');
+    unselectAllTanks();
 });
 
 
 function unselectAllTanks(){
-    waterOptions.forEach(op=>{op.classList.remove('selected-water')});
+    aquariums.forEach(op=>{op.classList.remove('selected-tank')});
 }
 function unselectAllFish(){
     fishOptions.forEach(op=>{op.classList.remove('selected')});
+}
+function unselectAllWater(){
+    waterOptions.forEach(op=>{op.classList.remove('selected-water')});
 }
