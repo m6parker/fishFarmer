@@ -1,0 +1,100 @@
+:root{
+    --primary-color: rgb(255, 255, 255);
+    --accent-color: white;
+    --accent-color2: black;
+}
+
+.hidden{
+    display: none !important;
+}
+
+body{
+    overflow: hidden;
+    user-select: none;
+    margin: 0;
+    font-family: monospace;
+    background-color: rgb(113, 113, 113);
+}
+
+.side-view, .top-view{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.map{
+    border: 2px solid white;
+    height: 75%;
+    width: 75%;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 4px solid black;
+}
+
+.aquarium{
+    border: 2px solid black;
+    height: 200px;
+    width: 100px;
+    background-color: rgb(125, 164, 177);
+}
+
+.aquarium.empty{
+    background-color: rgb(72, 72, 72);
+}
+
+.tank{
+    height: 60%;
+    width: 60%;
+    background-color: rgb(137, 137, 214);
+    border: 3px solid white;
+}
+
+.fish{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50px;
+    /* image-rendering: pixelated; */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size:contain;
+}
+
+.fish-left{
+    transform: scaleX(1);
+}
+
+.fish-right{
+    transform: scaleX(-1);
+}
+
+.fish-info{
+    position: absolute;
+}
+
+.add-container{
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.add-container>div:hover, .selected{
+    background-color: blue;
+    color: white;
+}
+
+.map-button{
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.map-button:hover{
+    background-color: blue;
+    color: white;
+}
