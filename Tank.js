@@ -13,4 +13,8 @@ class Tank {
         tank.className = `tank ${this.type} ${this.name} hidden`;
         tankContainer.appendChild(tank);
     }
+
+    totalFish(){
+        return this.fishes.length;
+    }
 }

@@ -112,6 +112,8 @@ mapButton.addEventListener('click', ()=>{
     sideView.classList.add('hidden');
     unselectAllFish();
     unselectAllTanks();
+
+    updateTankFishCount(currentTank);
 });
 
 waterOptions.forEach(option => {
@@ -159,4 +161,13 @@ function hideAllSideViewTanks(){
 function showSelectedTankUpClose(tankName){
     console.log(tankName)
     document.querySelector(`.${tankName}`).classList.remove('hidden');
+}
+function updateTankFishCount(tankName) {
+    const tankElement = document.querySelector(`.aquarium[name="${tankName}"]`);
+    const tankInfo = filledAquariums.find(tank => tank.name === tankName);
+
+    tankElement.innerHTML = `
+        <div>${tankInfo.name}</div>
+        <div>${tankInfo.fishes.length}</div>
+    `;
 }
