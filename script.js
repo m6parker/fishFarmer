@@ -48,6 +48,7 @@ buyButton.addEventListener('click', ()=>{
     // todo - need to keep track of different fish speeds/qualities
     const newFish = new Fish(option.textContent, 'tank1', 3, rect.left, getRandomPositionHeight());
     fishes.push(newFish)
+    unselectAllFish();
 });
 
 const aquariums = document.querySelectorAll('.aquarium');
@@ -59,24 +60,25 @@ aquariums.forEach(aquarium => {
     aquarium.addEventListener('click', ()=>{
         unselectAllTanks();
         aquarium.classList.add('selected-tank');
-        console.log(aquarium)
+        console.log(filledAquariums)
         if(aquarium.classList.contains('empty')){
             waterOptionContainer.classList.remove('hidden');
         }else{
             topView.classList.add('hidden');
             sideView.classList.remove('hidden');
+            showSelectedTankUpClose(aquarium.textContent);
         }
     });
 });
 
 const mapButton = document.querySelector('.map-button');
 mapButton.addEventListener('click', ()=>{
+    hideAllSideViewTanks();
     topView.classList.remove('hidden');
     sideView.classList.add('hidden');
 });
 
 waterOptions.forEach(option => {
-    console.log(option)
     option.addEventListener('click', ()=>{
         unselectAllWater();
         option.classList.add('selected-water');
@@ -98,6 +100,7 @@ document.querySelector('.fill-button').addEventListener('click', ()=>{
 
     waterOptionContainer.classList.add('hidden');
     unselectAllTanks();
+    unselectAllWater();
 });
 
 
@@ -109,4 +112,12 @@ function unselectAllFish(){
 }
 function unselectAllWater(){
     waterOptions.forEach(op=>{op.classList.remove('selected-water')});
+}
+function hideAllSideViewTanks(){
+    const sideViewTanks = document.querySelectorAll('.tank');
+    console.log(sideViewTanks)
+    sideViewTanks.forEach(op=>{op.classList.add('hidden')});
+}
+function showSelectedTankUpClose(tankName){
+    document.querySelector(`.${tankName}`).classList.remove('hidden')
 }
