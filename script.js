@@ -123,8 +123,10 @@ waterOptions.forEach(option => {
     });
 });
 
-document.querySelector('.fill-button').addEventListener('click', ()=>{
+const fillButton = document.querySelector('.fill-button');
+fillButton.addEventListener('click', ()=>{
     const selectedWater = document.querySelector('.selected-water');
+    if(!selectedWater){return;}
     const selectedTank = document.querySelector('.selected-tank');
     const tankName = `tank${tankCounter}`;
     selectedTank.setAttribute('name', tankName)
