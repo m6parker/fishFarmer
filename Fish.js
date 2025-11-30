@@ -10,7 +10,8 @@ class Fish {
 
     }
     
-    makeFish() {
+    makeFish(){
+        const tankContainer = document.querySelector('.tank');
         const fish = document.createElement('div');
         fish.className = `fish ${this.type} fish-right`;
         fish.style.left = `${this.x}px`;
@@ -55,7 +56,8 @@ class Fish {
         return fish;
     }
 
-    swim() {
+    swim(){
+        const tankContainer = document.querySelector('.tank');
         const rect = tankContainer.getBoundingClientRect();
         if(this.selected){ return; }
 

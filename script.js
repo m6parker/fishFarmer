@@ -1,10 +1,10 @@
-const tankContainer = document.querySelector('.tank');
 const fishOptions = document.querySelectorAll('.fish-option');
 const buyButton = document.querySelector('.buy-button');
 let fishes = [];
 // place fish in the tank at random heights using the tanks boundaries
 function getRandomPositionHeight(){
     // console.log(rect)
+    const tankContainer = document.querySelector('.tank');
     const rect = tankContainer.getBoundingClientRect();
     return Math.floor(Math.random() * rect.height-50) + rect.top;
 }
@@ -38,6 +38,7 @@ fishOptions.forEach(option => {
 });
 
 buyButton.addEventListener('click', ()=>{
+    const tankContainer = document.querySelector('.tank');
     const option = document.querySelector('.selected');
     console.log('cicked', option.textContent)
     const rect = tankContainer.getBoundingClientRect();
@@ -50,10 +51,13 @@ buyButton.addEventListener('click', ()=>{
 const aquariums = document.querySelectorAll('.aquarium');
 const topView = document.querySelector('.top-view');
 const sideView = document.querySelector('.side-view');
+const waterOptionContainer = document.querySelector('.water-options');
+const waterOptions = document.querySelectorAll('.water-option');
 aquariums.forEach(aquarium => {
     aquarium.addEventListener('click', ()=>{
+        aquarium.classList.add('selected-tank');
         if(aquarium.classList.contains('empty')){
-            aquarium.classList.remove('empty');     
+            waterOptionContainer.classList.remove('hidden');
         }else{
             topView.classList.add('hidden');
             sideView.classList.remove('hidden');
@@ -65,4 +69,23 @@ const mapButton = document.querySelector('.map-button');
 mapButton.addEventListener('click', ()=>{
     topView.classList.remove('hidden');
     sideView.classList.add('hidden');
+});
+
+waterOptions.forEach(option => {
+    console.log(option)
+    option.addEventListener('click', ()=>{
+        waterOptions.forEach(op=>{op.classList.remove('selected-water')});
+        option.classList.add('selected-water');
+    });
+});
+
+document.querySelector('.fill-button').addEventListener('click', ()=>{
+    const selectedWater = document.querySelector('.selected-water');
+    const selectedTank = document.querySelector('.selected-tank');
+    console.log('filled tank with ', selectedWater.textContent)
+
+    const newTank = new Tank(selectedWater.textContent, 20, 'tankOne');
+    selectedTank.classList.remove('empty');
+
+    waterOptionContainer.classList.add('hidden')
 });

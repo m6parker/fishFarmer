@@ -13,11 +13,20 @@
         <div class="top-view">
 
             <div class="map">
-                <div class="aquarium empty"></div>
-                <div class="aquarium empty"></div>
-                <div class="aquarium empty"></div>
-                <div class="aquarium empty"></div>
-                <div class="aquarium empty"></div>
+                <div class="aquarium empty">fill</div>
+                <div class="aquarium empty">fill</div>
+                <div class="aquarium empty">fill</div>
+                <div class="aquarium empty">fill</div>
+                <div class="aquarium empty">fill</div>
+            </div>
+
+            <div class="water-options hidden">
+                <div class="freshwater water-option">freshwater</div>
+                <div class="tropical water-option">tropical</div>
+                <div class="saltwater water-option">saltwater</div>
+                <div class="brackish water-option">brackish</div>
+
+                <button class="fill-button">Fill Tank</button>
             </div>
 
         </div>
@@ -31,11 +40,11 @@
                 <div class="fish-option">neon-tetra</div>
                 <div class="fish-option">minnow</div>
                 
-                <button class="buy-button">buy</button>
+                <button class="buy-button">buy fish</button>
             </div>
             
-            <div class="tank"></div>
-            
+            <div class="tank-container"></div>
+                
             <div class="fish-info hidden">type:</div>
             
             <div class="map-button">go to map</div>
@@ -43,6 +52,7 @@
     </div>
 
 
+    <script src="Tank.js"></script>
     <script src="Fish.js"></script>
     <script src="script.js"></script>
 </body>

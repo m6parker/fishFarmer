@@ -47,10 +47,45 @@ body{
     background-color: rgb(72, 72, 72);
 }
 
+.aquarium:hover, .selected-tank{
+    background-color: rgb(143, 143, 143);
+}
+
+.water-options{
+    position:absolute;
+    border: 3px solid white;
+    border-radius: 10px;
+    background-color: black;
+    padding: 10px;
+}
+.water-options>div:hover, .selected-water{
+    background-color: blue !important;
+    color: white !important;
+}
+.saltwater{
+    background-color: rgb(41, 255, 187);
+}
+.tropical{
+    background-color: rgb(0, 225, 255);
+}
+.freshwater{
+    background-color: rgb(91, 101, 255);
+}
+.brackish{
+    background-color: rgb(172, 121, 255);
+}
+
+.tank-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .tank{
     height: 60%;
     width: 60%;
-    background-color: rgb(137, 137, 214);
     border: 3px solid white;
 }
 
