@@ -32,7 +32,7 @@ loop();
 
 fishOptions.forEach(option => {
     option.addEventListener('click', ()=>{
-        fishOptions.forEach(op=>{op.classList.remove('selected')});
+        unselectAllFish();
         option.classList.add('selected');
     })
 });
@@ -74,7 +74,7 @@ mapButton.addEventListener('click', ()=>{
 waterOptions.forEach(option => {
     console.log(option)
     option.addEventListener('click', ()=>{
-        waterOptions.forEach(op=>{op.classList.remove('selected-water')});
+        unselectAllTanks();
         option.classList.add('selected-water');
     });
 });
@@ -86,6 +86,16 @@ document.querySelector('.fill-button').addEventListener('click', ()=>{
 
     const newTank = new Tank(selectedWater.textContent, 20, 'tankOne');
     selectedTank.classList.remove('empty');
+    selectedTank.textContent = '';
+    selectedTank.classList.add(`${selectedWater.textContent}`)
 
     waterOptionContainer.classList.add('hidden')
 });
+
+
+function unselectAllTanks(){
+    waterOptions.forEach(op=>{op.classList.remove('selected-water')});
+}
+function unselectAllFish(){
+    fishOptions.forEach(op=>{op.classList.remove('selected')});
+}
