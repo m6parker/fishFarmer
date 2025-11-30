@@ -4,6 +4,37 @@ let fishes = [];
 let filledAquariums = [];
 let tankCounter = 1;
 let currentTank = '';
+let goldfish = {
+    species: 'goldfish',
+    speed: 3,
+    type: 'freshwater',
+    disposition: 'friendly'
+};
+let neonTetra = {
+    species: 'neonTetra',
+    speed: 5,
+    type: 'tropical',
+    disposition: 'friendly'
+};
+let minnow = {
+    species: 'minnow',
+    speed: 5,
+    type: 'freshwater',
+    disposition: 'friendly'
+};
+let tigerBarb = {
+    species: 'tigerBarb',
+    speed: 4,
+    type: 'tropical',
+    disposition: 'aggressive'
+};
+let fishSpecies = [
+    goldfish,
+    tigerBarb,
+    minnow,
+    neonTetra
+]
+
 // place fish in the tank at random heights using the tanks boundaries
 function getRandomPositionHeight(){
     // console.log(rect)
@@ -44,11 +75,20 @@ buyButton.addEventListener('click', ()=>{
     const tankContainer = document.querySelector(`.${currentTank}`);
     const option = document.querySelector('.selected');
     const rect = tankContainer.getBoundingClientRect();
+    const species = fishSpecies.find(fish => fish.species === option.id);
 
-    // todo - need to keep track of different fish speeds/qualities
-    const newFish = new Fish(option.textContent, currentTank, 3, rect.left, getRandomPositionHeight());
-    fishes.push(newFish)
-    //cuurentTank.fishes.push(newfish)
+    if(species){
+        const newFish = new Fish(
+            option.textContent,
+            currentTank,
+            species.speed,
+            rect.left,
+            getRandomPositionHeight()
+        );
+        fishes.push(newFish);
+    }else{
+        console.log('error adding fish')
+    }
 });
 
 const aquariums = document.querySelectorAll('.aquarium');
