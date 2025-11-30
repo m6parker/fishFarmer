@@ -3,10 +3,11 @@ const buyButton = document.querySelector('.buy-button');
 let fishes = [];
 let filledAquariums = [];
 let tankCounter = 1;
+let currentTank = '';
 // place fish in the tank at random heights using the tanks boundaries
 function getRandomPositionHeight(){
     // console.log(rect)
-    const tankContainer = document.querySelector('.tank');
+    const tankContainer = document.querySelector(`.${currentTank}`);
     const rect = tankContainer.getBoundingClientRect();
     return Math.floor(Math.random() * rect.height-50) + rect.top;
 }
@@ -40,15 +41,14 @@ fishOptions.forEach(option => {
 });
 
 buyButton.addEventListener('click', ()=>{
-    const tankContainer = document.querySelector('.tank');
+    const tankContainer = document.querySelector(`.${currentTank}`);
     const option = document.querySelector('.selected');
-    console.log('cicked', option.textContent)
     const rect = tankContainer.getBoundingClientRect();
 
     // todo - need to keep track of different fish speeds/qualities
-    const newFish = new Fish(option.textContent, 'tank1', 3, rect.left, getRandomPositionHeight());
+    const newFish = new Fish(option.textContent, currentTank, 3, rect.left, getRandomPositionHeight());
     fishes.push(newFish)
-    unselectAllFish();
+    //cuurentTank.fishes.push(newfish)
 });
 
 const aquariums = document.querySelectorAll('.aquarium');
@@ -67,6 +67,8 @@ aquariums.forEach(aquarium => {
             topView.classList.add('hidden');
             sideView.classList.remove('hidden');
             showSelectedTankUpClose(aquarium.textContent);
+            currentTank = aquarium.textContent;
+            console.log('currentTank: ', currentTank)
         }
     });
 });
@@ -76,6 +78,8 @@ mapButton.addEventListener('click', ()=>{
     hideAllSideViewTanks();
     topView.classList.remove('hidden');
     sideView.classList.add('hidden');
+    unselectAllFish();
+    unselectAllTanks();
 });
 
 waterOptions.forEach(option => {

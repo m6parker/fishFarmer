@@ -11,7 +11,7 @@ class Fish {
     }
     
     makeFish(){
-        const tankContainer = document.querySelector('.tank');
+        const tankContainer = document.querySelector(`.${this.tank}`);
         const fish = document.createElement('div');
         fish.className = `fish ${this.type} fish-right`;
         fish.style.left = `${this.x}px`;
@@ -21,7 +21,7 @@ class Fish {
 
         const info = document.querySelector('.fish-info');
         fish.addEventListener('click', ()=> {
-            console.log('clicked ', this.type);
+            console.log('clicked ', this.type, this.tank);
             if(this.selected){
                 this.selected = false;
                 info.classList.add('hidden');
@@ -39,7 +39,6 @@ class Fish {
 
                 // make him swim again after 3 seconds
                 setTimeout(() => {
-                    console.log('3 seconds have passed');
                     this.selected = false;
                     info.classList.add('hidden');
                 }, 3000);
@@ -57,7 +56,7 @@ class Fish {
     }
 
     swim(){
-        const tankContainer = document.querySelector('.tank');
+        const tankContainer = document.querySelector(`.${this.tank}`);
         const rect = tankContainer.getBoundingClientRect();
         if(this.selected){ return; }
 
