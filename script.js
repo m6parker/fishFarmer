@@ -8,25 +8,29 @@ let goldfish = {
     species: 'goldfish',
     speed: 3,
     type: 'freshwater',
-    disposition: 'friendly'
+    disposition: 'friendly',
+    school: false
 };
 let neonTetra = {
     species: 'neonTetra',
     speed: 5,
     type: 'tropical',
-    disposition: 'friendly'
+    disposition: 'friendly',
+    school: true
 };
 let minnow = {
     species: 'minnow',
     speed: 5,
     type: 'freshwater',
-    disposition: 'friendly'
+    disposition: 'friendly',
+    school: true
 };
 let tigerBarb = {
     species: 'tigerBarb',
     speed: 4,
     type: 'tropical',
-    disposition: 'aggressive'
+    disposition: 'aggressive',
+    school: true
 };
 let fishSpecies = [
     goldfish,
@@ -37,26 +41,12 @@ let fishSpecies = [
 
 // place fish in the tank at random heights using the tanks boundaries
 function getRandomPositionHeight(){
-    // console.log(rect)
     const tankContainer = document.querySelector(`.${currentTank}`);
     const rect = tankContainer.getBoundingClientRect();
-    return Math.floor(Math.random() * rect.height-50) + rect.top;
+    return Math.floor(Math.random() * (rect.height - 50)) + rect.top;
 }
-// fish = type, tank, speed, x, y
-// const tetra = new Fish('neon-tetra', 'tank1', 5, rect.left, getRandomPositionHeight());
-// const tetra2 = new Fish('neon-tetra', 'tank1', 5, rect.left, getRandomPositionHeight());
-// const tetra3 = new Fish('neon-tetra', 'tank1', 5, rect.left, getRandomPositionHeight());
-// const goldfish = new Fish('goldfish', 'tank1', 2, rect.left, getRandomPositionHeight());
-// const tigerBarb = new Fish('tiger-barb', 'tank1', 3, rect.left, getRandomPositionHeight());
-// const minnow = new Fish('minnow', 'tank1', 3, rect.left, getRandomPositionHeight());
 
 function loop() {
-    // tetra.swim();
-    // tetra2.swim();
-    // tetra3.swim();
-    // goldfish.swim();
-    // tigerBarb.swim();
-    // minnow.swim();
     fishes.forEach(fish => {
         fish.swim();
     });
@@ -76,16 +66,19 @@ buyButton.addEventListener('click', ()=>{
     const option = document.querySelector('.selected');
     const rect = tankContainer.getBoundingClientRect();
     const species = fishSpecies.find(fish => fish.species === option.id);
+    const focusedTank = filledAquariums.find(tank => tank.name === currentTank);
 
     if(species){
         const newFish = new Fish(
             option.textContent,
-            currentTank,
+            focusedTank.name,
             species.speed,
+            species.disposition,
             rect.left,
             getRandomPositionHeight()
         );
         fishes.push(newFish);
+        focusedTank.fishes.push(newFish)
     }else{
         console.log('error adding fish')
     }
@@ -106,9 +99,8 @@ aquariums.forEach(aquarium => {
         }else{
             topView.classList.add('hidden');
             sideView.classList.remove('hidden');
-            showSelectedTankUpClose(aquarium.textContent);
-            currentTank = aquarium.textContent;
-            console.log('currentTank: ', currentTank)
+            currentTank = aquarium.getAttribute('name');
+            showSelectedTankUpClose(currentTank);
         }
     });
 });
@@ -133,14 +125,17 @@ document.querySelector('.fill-button').addEventListener('click', ()=>{
     const selectedWater = document.querySelector('.selected-water');
     const selectedTank = document.querySelector('.selected-tank');
     const tankName = `tank${tankCounter}`;
+    selectedTank.setAttribute('name', tankName)
     tankCounter++;
-    console.log('filled tank with ', selectedWater.textContent)
 
     const newTank = new Tank(selectedWater.textContent, 20, tankName);
     selectedTank.classList.remove('empty');
-    selectedTank.textContent = newTank.name;
-    selectedTank.classList.add(`${selectedWater.textContent}`)
-    filledAquariums.push(newTank.name);
+    selectedTank.innerHTML = `
+        <div>${newTank.name}</div>
+        <div>${newTank.fishes.length}</div>
+    `;
+    selectedTank.classList.add(selectedWater.textContent)
+    filledAquariums.push(newTank);
 
     waterOptionContainer.classList.add('hidden');
     unselectAllTanks();
@@ -159,9 +154,9 @@ function unselectAllWater(){
 }
 function hideAllSideViewTanks(){
     const sideViewTanks = document.querySelectorAll('.tank');
-    console.log(sideViewTanks)
     sideViewTanks.forEach(op=>{op.classList.add('hidden')});
 }
 function showSelectedTankUpClose(tankName){
-    document.querySelector(`.${tankName}`).classList.remove('hidden')
+    console.log(tankName)
+    document.querySelector(`.${tankName}`).classList.remove('hidden');
 }

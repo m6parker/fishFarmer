@@ -1,13 +1,14 @@
 class Fish {
-    constructor(type, tank, speed, x, y) {
+    constructor(type, tank, speed, disposition, x, y) {
         this.type = type;
         this.tank = tank;
         this.speed = speed;
+        this.disposition = disposition
         this.x = x;
         this.y = y;
         this.element = this.makeFish();
         this.selected = false;
-
+        this.happiness = this.calculateHappiness();
     }
     
     makeFish(){
@@ -33,6 +34,8 @@ class Fish {
                 info.innerHTML = `
                     <div>type: ${this.type}</div>
                     <div>tank: ${this.tank}</div>
+                    <div>disposition: ${this.disposition}</div>
+                    <div>happiness: ${this.happiness}</div>
                 `;
                 info.style.left = `${this.x}px`;
                 info.style.top = `${this.y - 30}px`;
@@ -76,5 +79,10 @@ class Fish {
             }
         }
         this.element.style.left = `${this.x}px`;
+    }
+
+    calculateHappiness(){
+        //todo - based off schooling and water type/temp
+        return '100%';
     }
 }
