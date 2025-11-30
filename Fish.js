@@ -83,6 +83,9 @@ class Fish {
 
     calculateHappiness(){
         //todo - based off schooling and water type/temp
+
+        console.log(this)
+
         return '100%';
     }
 }
