@@ -67,19 +67,43 @@ const bookSprite = new Sprite({
     selectedImg: selectedbookImage,
 });
 
-const buttonSprite = new Sprite({
+const prevPageSprite = new Sprite({
     position:{
         x: 150,
         y: 850
     },
-    image: bookImage,
-    width: 100,
+    image: prevImage,
+    width: 125,
     height: 100,
-    name: 'button',
-    selectedImg: selectedbookImage,
+    name: 'previous',
+    selectedImg: prevImageSelected,
 });
 
-const selectables = [bookSprite, buttonSprite];
+const nextPageSprite = new Sprite({
+    position:{
+        x: 1270,
+        y: 850
+    },
+    image: nextImage,
+    width: 125,
+    height: 100,
+    name: 'next',
+    selectedImg: nextImageSelected,
+});
+
+const noteSprite = new Sprite({
+    position:{
+        x: 200,
+        y: 250
+    },
+    image: noteImage,
+    width: 500,
+    height: 550,
+    name: 'note',
+    selectedImg: noteImage,
+});
+
+const selectables = [prevPageSprite, nextPageSprite, noteSprite];
 
 function animate(){
 
@@ -87,37 +111,17 @@ function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     backgroundSprite.draw();
+    bookSprite.draw();
     selectables.forEach(item => item.draw());
+
+    
+
+    //Testing
+    drawGrid();
 
 };
 animate();
 
-// bookImage.onload = function() {
-//     ctx.drawImage(backgorundImage, 0, 0, canvas.width, canvas.height);
-//     ctx.drawImage(bookImage, 0, 0, BOOK_WIDTH, BOOK_HEIGHT);
-    
-//     // buttons for turning pages
-//     ctx.fillStyle = "black";
-//     ctx.fillRect(150, 880, 50, 50);
-//     ctx.fillRect(1340, 880, 50, 50);
-
-//     // button for clicking tanks
-
-//     // text for turning pages
-//     ctx.fillStyle = "white";
-//     ctx.font = "35px Courier New";
-//     ctx.textAlign = "center";
-//     ctx.fillText(`<`, 175, 910);
-//     ctx.fillText(`>`, 1365, 910);
-    
-//     // text for money labels
-//     ctx.fillStyle = "black";
-//     ctx.fillText(`Wallet: $${MONEY}`, 400, 470);
-//     ctx.fillText(`Running Tanks: ${filledAquariums.length}`, 450, 530);
-    
-//     hiveSprite.draw();
-//     // drawGrid();
-// };
 
 canvas.addEventListener("click", function(event) {
     const rect = canvas.getBoundingClientRect();
@@ -140,23 +144,20 @@ canvas.addEventListener("click", function(event) {
     console.log("WORLD: ", cameraOffset.x + mouseLocation.x, cameraOffset.y + mouseLocation.y) // sprite coords
     
     // clicking sprites
-    selectables.forEach(movable => {
+    selectables.forEach(sprite => {
         if (
-            mouseLocation.x >= movable.position.x &&
-            mouseLocation.x <= movable.position.x + movable.width &&
-            mouseLocation.y >= movable.position.y &&
-            mouseLocation.y <= movable.position.y + movable.height
+            mouseLocation.x >= sprite.position.x &&
+            mouseLocation.x <= sprite.position.x + sprite.width &&
+            mouseLocation.y >= sprite.position.y &&
+            mouseLocation.y <= sprite.position.y + sprite.height
         ) {
-            console.log(`CLICKED ${JSON.stringify(movable.name)}`);
+            console.log(`CLICKED ${JSON.stringify(sprite.name)}`);
 
-            movable.selected = movable.selected ? false : true;
-            movable.selectSprite();
+            // sprite.selected = sprite.selected ? false : true;
+            // sprite.selectSprite();
 
-            if(movable.name === "frog"){
+            if(sprite.name === "previous"){
                 spriteTooltip.classList.remove('hidden');
-                spriteTooltip.style.left = `${mouseLocation.x + 10}px`;
-                spriteTooltip.style.top = `${mouseLocation.y + 10}px`;
-                spriteTooltip.innerHTML = `${movable.name}: points/health/info`;
             }
         }
     });
@@ -167,14 +168,19 @@ document.addEventListener('mousemove', (e) => {
     mouseLocation.y = e.clientY;
 
     //hover sprites       
-    selectables.forEach(movable => {
+    selectables.forEach(sprite => {
         if(
-            mouseLocation.x >= movable.position.x &&
-            mouseLocation.x <= movable.position.x + movable.width &&
-            mouseLocation.y >= movable.position.y &&
-            mouseLocation.y <= movable.position.y + movable.height
+            mouseLocation.x >= sprite.position.x &&
+            mouseLocation.x <= sprite.position.x + sprite.width &&
+            mouseLocation.y >= sprite.position.y &&
+            mouseLocation.y <= sprite.position.y + sprite.height
         ){
             canvas.style.cursor = 'pointer';
+            sprite.selected = true;
+            sprite.selectSprite();
+        }else{
+            // canvas.style.cursor = 'default';
+            sprite.unselectSprite();
         }
     });
 });

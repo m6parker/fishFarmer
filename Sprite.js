@@ -1,12 +1,13 @@
 class Sprite{
-    constructor({position, image, height, width, selectedImg}){
+    constructor({position, image, height, width, selectedImg, name}){
         this.position = position;
         this.image = image;
         this.height = height;
         this.width = width;
         this.selected = false;
-        this.selectedImg = image;
+        this.selectedImg = selectedImg;
         this.unselectedImg = image;
+        this.name = name;
         
     }
 
@@ -17,5 +18,9 @@ class Sprite{
     // selecting image highlights border
     selectSprite(){
         this.selected ? this.image = this.selectedImg : this.image = this.unselectedImg;
+    }
+
+    unselectSprite(){
+        this.image = this.unselectedImg;
     }
 }
