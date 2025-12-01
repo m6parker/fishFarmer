@@ -9,8 +9,18 @@
 <body>
     
     <div class="container">
+        <canvas class="notebook-canvas"></canvas>
+        <div class="notebook-container">
+            <div class="notebook page1">
+                <!-- <div class="money">Wallet: $1</div>
+                <button class="page">prev page</button>
+                <button class="page">next page</button> -->
+            </div>
+            <div class="notebook page2 hidden"></div>
+            <div class="notebook page3 hidden"></div>
+        </div>
 
-        <div class="top-view">
+        <div class="top-view hidden">
 
             <div class="map">
                 <div class="aquarium empty"></div>
@@ -52,7 +62,9 @@
         </div>
     </div>
 
-
+    <script src="images.js"></script>
+    <script src="Sprite.js"></script>
+    <script src="canvas.js"></script>
     <script src="Tank.js"></script>
     <script src="Fish.js"></script>
     <script src="script.js"></script>

@@ -1,5 +1,6 @@
 const fishOptions = document.querySelectorAll('.fish-option');
 const buyButton = document.querySelector('.buy-button');
+let MONEY = 0;
 let fishes = [];
 let filledAquariums = [];
 let tankCounter = 1;

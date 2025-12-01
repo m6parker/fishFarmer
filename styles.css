@@ -12,10 +12,52 @@ body{
     overflow: hidden;
     user-select: none;
     margin: 0;
-    font-family: monospace;
+    padding: 0;
+    /* font-family: monospace;
     background-color: rgb(0, 0, 0);
     color: white;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(img/notebook/wood3.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size:cover;
+    image-rendering: pixelated; */
 }
+/* .notebook-container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notebook{
+    width: 1000px;
+    height: 900px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size:contain;
+} */
+.page1{
+    background-image: url(img/notebook/book2.png);
+    z-index: 999;
+}
+.page2{
+    background-image: url(img/notebook/book1.png);
+}
+.page3{
+    background-image: url(img/notebook/book3.png);
+}/*
+.money{
+    top: 70%;
+    right: 70%;
+    font-family: monospace;
+    font-size: 30px;
+    position:absolute;
+}
+.page{
+    position: absolute;
+} */
 
 .side-view, .top-view{
     display: flex;
