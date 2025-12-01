@@ -11,6 +11,9 @@ const mouseLocation = { x: 0, y: 0};
 const BOOK_WIDTH = 1500;
 const BOOK_HEIGHT = 1100;
 
+const noteBookPages = ['wallet', 'fish'];
+let currentPage = 0;
+
 // TESTING
 function drawGrid() {
     const gridSize = 50; // Space between grid lines
@@ -105,6 +108,25 @@ const noteSprite = new Sprite({
 
 const selectables = [prevPageSprite, nextPageSprite, noteSprite];
 
+function showPageOne(){
+    if(currentPage != 0){return;}
+
+    noteSprite.draw();
+    // text for money labels
+    ctx.fillStyle = "black";
+    ctx.font = "30px Courier New";
+    ctx.fillText(`Wallet: $${MONEY}`, 320, 450);
+    ctx.fillText(`Running Tanks: ${filledAquariums.length}`, 320, 530);
+
+    // 
+}
+
+function showPageTwo(){
+    if(currentPage != 2){return;}
+
+    //fish info maybe
+}
+
 function animate(){
 
     window.requestAnimationFrame(animate);
@@ -114,10 +136,11 @@ function animate(){
     bookSprite.draw();
     selectables.forEach(item => item.draw());
 
-    
+    showPageOne();
+    showPageTwo();
 
     //Testing
-    drawGrid();
+    // drawGrid();
 
 };
 animate();
@@ -156,8 +179,18 @@ canvas.addEventListener("click", function(event) {
             // sprite.selected = sprite.selected ? false : true;
             // sprite.selectSprite();
 
+            if(sprite.name === "next"){
+                // spriteTooltip.classList.remove('hidden');
+                currentPage++;
+            }
             if(sprite.name === "previous"){
-                spriteTooltip.classList.remove('hidden');
+                currentPage--;
+            }
+
+            //TESTING
+            if(sprite.name === 'note'){
+                canvas.classList.add('hidden')
+                topView.classList.remove('hidden')
             }
         }
     });
