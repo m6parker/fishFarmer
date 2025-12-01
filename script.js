@@ -109,7 +109,8 @@ aquariums.forEach(aquarium => {
 const mapButton = document.querySelector('.map-button');
 mapButton.addEventListener('click', ()=>{
     hideAllSideViewTanks();
-    topView.classList.remove('hidden');
+    // topView.classList.remove('hidden');
+    canvas.classList.remove('hidden')
     sideView.classList.add('hidden');
     unselectAllFish();
     unselectAllTanks();

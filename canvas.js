@@ -106,12 +106,50 @@ const noteSprite = new Sprite({
     selectedImg: noteImage,
 });
 
-const selectables = [prevPageSprite, nextPageSprite, noteSprite];
+const tank1Sprite = new Sprite({
+    position:{
+        x: 1000,
+        y: 250
+    },
+    image: tankImage,
+    width: 200,
+    height: 100,
+    name: 'tank1',
+    selectedImg: tankImageSelected,
+});
+
+const tank2Sprite = new Sprite({
+    position:{
+        x: 1000,
+        y: 450
+    },
+    image: tankImage,
+    width: 200,
+    height: 100,
+    name: 'tank2',
+    selectedImg: tankImageSelected,
+});
+
+const tank3Sprite = new Sprite({
+    position:{
+        x: 1000,
+        y: 650
+    },
+    image: tankImage,
+    width: 200,
+    height: 100,
+    name: 'tank3',
+    selectedImg: tankImageSelected,
+});
+
+
+const selectables = [prevPageSprite, nextPageSprite, noteSprite, tank1Sprite, tank2Sprite, tank3Sprite];
+const pageOneContents = [noteSprite, tank1Sprite, tank2Sprite, tank3Sprite];
 
 function showPageOne(){
     if(currentPage != 0){return;}
 
-    noteSprite.draw();
+    pageOneContents.forEach(item => item.draw());
     // text for money labels
     ctx.fillStyle = "black";
     ctx.font = "30px Courier New";
@@ -134,7 +172,9 @@ function animate(){
 
     backgroundSprite.draw();
     bookSprite.draw();
-    selectables.forEach(item => item.draw());
+    prevPageSprite.draw();
+    nextPageSprite.draw();
+    // selectables.forEach(item => item.draw());
 
     showPageOne();
     showPageTwo();
@@ -188,7 +228,7 @@ canvas.addEventListener("click", function(event) {
             }
 
             //TESTING
-            if(sprite.name === 'note'){
+            if(sprite.name === 'tank1'){
                 canvas.classList.add('hidden')
                 topView.classList.remove('hidden')
             }

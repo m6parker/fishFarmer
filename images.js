@@ -23,3 +23,9 @@ const nextImage = new Image();
 nextImage.src = 'img/ui/next-page.png';
 const nextImageSelected = new Image();
 nextImageSelected.src = 'img/ui/next-page_selected.png';
+
+//tanks
+const tankImage = new Image();
+tankImage.src = 'img/ui/tank.png';
+const tankImageSelected = new Image();
+tankImageSelected.src = 'img/ui/tank_selected.png';
