@@ -355,6 +355,7 @@ animate();
 
 let fillMode = false;
 let selectedTank;
+let canOpenTank = false;
 // let drainMode = false;
 canvas.addEventListener("click", function(event) {
     const rect = canvas.getBoundingClientRect();
@@ -389,23 +390,29 @@ canvas.addEventListener("click", function(event) {
             console.log(`CLICKED ${JSON.stringify(sprite.name)}`); // testing
             
             if(sprite.name === "tank1" || sprite.name === "tank2" ||sprite.name === "tank3" ){
+                // flag as selecteed and change image
                 selectedTank = sprite;
                 sprite.selectSprite();
-                unselectAllBlueprintItems();
+
+                // double clicking full tank to open it
+                if(sprite.selected){canOpenTank = true;}
+
                 //select last clicked tank
+                unselectAllBlueprintItems();
                 sprite.selected = true;
-                
+
                 //check if empty and allow to fill
                 if(sprite.isEmpty){
                     fillMode = true;
                     console.log('tank is empty')
                 }else{
                     fillMode=false;
-
-                    //show tanks
-                    // canvas.classList.add('hidden')
-                    // topView.classList.remove('hidden')
+                    //show tank inside!!!!
+                    if(canOpenTank){
+                        openTank(sprite.name);
+                    }
                 }
+                canOpenTank = false;
             }
 
             if(sprite.name === "next"){

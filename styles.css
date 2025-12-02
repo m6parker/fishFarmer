@@ -13,6 +13,7 @@ body{
     user-select: none;
     margin: 0;
     padding: 0;
+    background-color: rgba(0, 0, 0, 0.832);
     /* font-family: monospace;
     background-color: rgb(0, 0, 0);
     color: white;
@@ -23,6 +24,51 @@ body{
     background-position: center center;
     background-size:cover;
     image-rendering: pixelated; */
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.aquarium{
+    height: 90vh;
+    width: 90vw;
+    background-image: url('img/sideViewTanks/sideViewTank.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size:cover;
+}
+
+.add-container{
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.add-container>div:hover, .selected{
+    background-color: blue;
+    color: white;
+}
+
+.map-button{
+    position: absolute;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    bottom: 20px;
+    right: 45%;
+}
+
+.map-button:hover{
+    background-color: blue;
+    color: white;
 }
 /* .notebook-container{
     height: 100vh;
@@ -38,7 +84,7 @@ body{
     background-position: center center;
     background-size:contain;
 } */
-.page1{
+/* .page1{
     background-image: url(img/notebook/book2.png);
     z-index: 999;
 }
@@ -46,8 +92,8 @@ body{
     background-image: url(img/notebook/book1.png);
 }
 .page3{
-    background-image: url(img/notebook/book3.png);
-}/*
+    background-image: url(img/notebook/book3.png); 
+}
 .money{
     top: 70%;
     right: 70%;
@@ -59,16 +105,17 @@ body{
     position: absolute;
 } */
 
-.side-view, .top-view{
+
+/* .side-view, .top-view{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     flex-direction: column;
     overflow: hidden;
-}
+} */
 
-.map{
+/* .map{
     border: 2px solid white;
     height: 75%;
     width: 75%;
@@ -79,9 +126,9 @@ body{
     border: 4px solid black;
     flex-wrap: wrap;
     align-items: center;
-}
+} */
 
-.aquarium{
+/* .aquarium{
     border: 5px solid white;
     height: 300px;
     width: 150px;
@@ -96,7 +143,7 @@ body{
 
 .aquarium:hover, .selected-tank{
     border: 5px solid black;
-}
+} */
 
 
 /* .water-options{
@@ -124,7 +171,7 @@ body{
     background-color: rgb(172, 121, 255);
 }
 
-.tank-container{
+/* .tank-container{
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -136,7 +183,7 @@ body{
     height: 60%;
     width: 60%;
     border: 3px solid white;
-}
+} */
 
 .fish{
     position: absolute;
@@ -161,27 +208,6 @@ body{
     position: absolute;
 }
 
-.add-container{
-    border: 2px solid white;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-.add-container>div:hover, .selected{
-    background-color: blue;
-    color: white;
-}
-
-.map-button{
-    border: 2px solid white;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-.map-button:hover{
-    background-color: blue;
-    color: white;
-}
 
 button{
     width: 200px;
