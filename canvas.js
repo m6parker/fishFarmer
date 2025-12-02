@@ -97,7 +97,7 @@ const nextPageSprite = new Sprite({
 const noteSprite = new Sprite({
     position:{
         x: 200,
-        y: 250
+        y: 120
     },
     image: noteImage,
     width: 500,
@@ -140,6 +140,51 @@ const blueprintPaperSprite = new Sprite({
     height: 700,
     name: 'blueprint',
 });
+
+const freshwaterSelectionSprite = new Sprite({
+    position:{
+        x: 200,
+        y: 630
+    },
+    image: waterSelectionFreshwater,
+    width: 600,
+    height: 600,
+    name: 'freshwater',
+});
+
+const saltwaterSelectionSprite = new Sprite({
+    position:{
+        x: 200,
+        y: 630
+    },
+    image: waterSelectionSaltwater,
+    width: 600,
+    height: 600,
+    name: 'saltwater',
+});
+
+const brackishSelectionSprite = new Sprite({
+    position:{
+        x: 200,
+        y: 630
+    },
+    image: waterSelectionBrackish,
+    width: 600,
+    height: 600,
+    name: 'brackish',
+});
+
+const tropicalSelectionSprite = new Sprite({
+    position:{
+        x: 200,
+        y: 630
+    },
+    image: waterSelectionTropical,
+    width: 600,
+    height: 600,
+    name: 'tropical',
+});
+
 
 //tanks
 
@@ -203,6 +248,18 @@ const pageOneContents = [
     drainSprite,
 ];
 
+const waterTypes = [
+    freshwaterSelectionSprite,
+    saltwaterSelectionSprite,
+    tropicalSelectionSprite,
+    brackishSelectionSprite,
+];
+
+let currentWaterSelected = 0;
+function changeWaterSelection(type){
+    waterTypes[type].draw();
+}
+
 const pageTwoContents = [];
 
 function showPageOne(){
@@ -212,10 +269,13 @@ function showPageOne(){
     // text for money labels
     ctx.fillStyle = "black";
     ctx.font = "30px Courier New";
-    ctx.fillText(`Wallet: $${MONEY}`, 320, 450);
-    ctx.fillText(`Running Tanks: ${filledAquariums.length}`, 320, 530);
+    ctx.fillText(`Wallet: $${MONEY}`, 320, 300);
+    ctx.fillText(`Running Tanks: ${filledAquariums.length}`, 320, 400);
     // ctx.fillText(`Drain`, 975, 925);
     // ctx.fillText(`Fill`, 1115, 925);
+
+    //show correctly checked water selection
+    changeWaterSelection(currentWaterSelected);
 }
 
 //fish info maybe
@@ -239,8 +299,18 @@ function animate(){
     showPageOne();
     showPageTwo();
 
+    ctx.fillStyle = "transparent";
+    // ctx.fillStyle = "red"; //testing
+    ctx.fillRect(300, 750, 100, 100);
+    // ctx.fillStyle = "green";
+    ctx.fillRect(300, 850, 100, 100);
+    // ctx.fillStyle = "blue";
+    ctx.fillRect(300, 950, 100, 100);
+    // ctx.fillStyle = "yellow";
+    ctx.fillRect(300, 1050, 100, 100);
+
     //Testing
-    // drawGrid();
+    drawGrid();
 
 };
 animate();
@@ -257,6 +327,23 @@ canvas.addEventListener("click", function(event) {
     //testing
     // console.log("WORLD: ", cameraOffset.x + mouseLocation.x, cameraOffset.y + mouseLocation.y) // sprite coords
     
+    //click water buttons (not sprite)
+    if (x >= 300 && x <= 400){
+        if(y >= 750 && y <= 850){
+            console.log('freshwater');
+            currentWaterSelected = 0;
+        }else if(y >= 850 && y <= 950){
+            console.log('saltwater');
+            currentWaterSelected = 1;
+        }else if(y >= 950 && y <= 1050){
+            console.log('tropical');
+            currentWaterSelected = 2;
+        }else if(y >= 1050 && y <= 1150){
+            console.log('brackish');
+            currentWaterSelected = 3;
+        }
+    }
+
     // clicking sprites
     selectables.forEach(sprite => {
         if (
@@ -275,6 +362,8 @@ canvas.addEventListener("click", function(event) {
                     selectedTank = sprite;
                 }else{
                     fillMode=false;
+
+                    //show tanks
                     canvas.classList.add('hidden')
                     topView.classList.remove('hidden')
                 }
@@ -290,9 +379,13 @@ canvas.addEventListener("click", function(event) {
             if(sprite.name === "faucet"){
                 if(fillMode){
                     console.log('filling the tank')
-                    selectedTank.image = tankFreshwaterFrontImage;
-                    selectedTank.selectedImg = tankFreshwaterFrontImageSelected;
-                    selectedTank.isEmpty = false;
+                    
+                    //pick a type of watter to fill tank
+                    waterSelection.classList.remove('hidden')
+                    
+                    // selectedTank.image = tankFreshwaterFrontImage;
+                    // selectedTank.selectedImg = tankFreshwaterFrontImageSelected;
+                    // selectedTank.isEmpty = false;
                 }
             }
             //can only drain filled tanks

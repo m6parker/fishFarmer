@@ -88,6 +88,7 @@ buyButton.addEventListener('click', ()=>{
 const aquariums = document.querySelectorAll('.aquarium');
 const topView = document.querySelector('.top-view');
 const sideView = document.querySelector('.side-view');
+const waterSelection = document.querySelector('.water-selection');
 const waterOptionContainer = document.querySelector('.water-options');
 const waterOptions = document.querySelectorAll('.water-option');
 aquariums.forEach(aquarium => {

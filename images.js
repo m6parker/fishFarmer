@@ -17,6 +17,18 @@ noteImageSelected.src = 'img/ui/note_selected.png';
 const blueprintPaperImage = new Image();
 blueprintPaperImage.src = 'img/ui/bluprint.png';
 
+const waterSelectionFreshwater = new Image();
+waterSelectionFreshwater.src = 'img/notebook/water_freshwater.png';
+
+const waterSelectionTropical = new Image();
+waterSelectionTropical.src = 'img/notebook/water_tropical.png';
+
+const waterSelectionBrackish = new Image();
+waterSelectionBrackish.src = 'img/notebook/water_brackish.png';
+
+const waterSelectionSaltwater = new Image();
+waterSelectionSaltwater.src = 'img/notebook/water_saltwater.png';
+
 //buttons
 const prevImage = new Image();
 prevImage.src = 'img/ui/prev-page.png';
