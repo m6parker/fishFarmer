@@ -106,45 +106,104 @@ const noteSprite = new Sprite({
     selectedImg: noteImage,
 });
 
+const faucetSprite = new Sprite({
+    position:{
+        x: 1100,
+        y: 800
+    },
+    image: faucetImage,
+    width: 100,
+    height: 100,
+    name: 'faucet',
+    selectedImg: faucetImageSelected,
+});
+
+const drainSprite = new Sprite({
+    position:{
+        x: 970,
+        y: 800
+    },
+    image: drainImage,
+    width: 100,
+    height: 100,
+    name: 'drain',
+    selectedImg: drainImageSelected,
+});
+
+const blueprintPaperSprite = new Sprite({
+    position:{
+        x: 815,
+        y: 100
+    },
+    image: blueprintPaperImage,
+    width: 600,
+    height: 700,
+    name: 'blueprint',
+});
+
+//tanks
+
 const tank1Sprite = new Sprite({
     position:{
         x: 1000,
-        y: 250
+        y: 170
     },
-    image: tankImage,
+    image: tankEmptyFrontImage,
     width: 200,
     height: 100,
     name: 'tank1',
-    selectedImg: tankImageSelected,
+    selectedImg: tankEmptyFrontImageSelected,
+    isEmpty: true
 });
 
 const tank2Sprite = new Sprite({
     position:{
         x: 1000,
-        y: 450
+        y: 350
     },
-    image: tankImage,
+    image: tankEmptyFrontImage,
     width: 200,
     height: 100,
     name: 'tank2',
-    selectedImg: tankImageSelected,
+    selectedImg: tankEmptyFrontImageSelected,
+    isEmpty: true
 });
 
 const tank3Sprite = new Sprite({
     position:{
         x: 1000,
-        y: 650
+        y: 550
     },
-    image: tankImage,
+    image: tankEmptyFrontImage,
     width: 200,
     height: 100,
     name: 'tank3',
-    selectedImg: tankImageSelected,
+    selectedImg: tankEmptyFrontImageSelected,
+    isEmpty: true
 });
 
+const selectables = [
+    prevPageSprite, 
+    nextPageSprite, 
+    noteSprite, 
+    tank1Sprite, 
+    tank2Sprite, 
+    tank3Sprite, 
+    faucetSprite, 
+    drainSprite
+];
 
-const selectables = [prevPageSprite, nextPageSprite, noteSprite, tank1Sprite, tank2Sprite, tank3Sprite];
-const pageOneContents = [noteSprite, tank1Sprite, tank2Sprite, tank3Sprite];
+const pageOneContents = [
+    noteSprite, 
+    blueprintPaperSprite,
+    tank1Sprite, 
+    tank2Sprite, 
+    tank3Sprite, 
+    faucetSprite, 
+    drainSprite,
+];
+
+const pageTwoContents = [];
 
 function showPageOne(){
     if(currentPage != 0){return;}
@@ -155,14 +214,15 @@ function showPageOne(){
     ctx.font = "30px Courier New";
     ctx.fillText(`Wallet: $${MONEY}`, 320, 450);
     ctx.fillText(`Running Tanks: ${filledAquariums.length}`, 320, 530);
-
-    // 
+    // ctx.fillText(`Drain`, 975, 925);
+    // ctx.fillText(`Fill`, 1115, 925);
 }
 
+//fish info maybe
 function showPageTwo(){
     if(currentPage != 2){return;}
 
-    //fish info maybe
+    pageTwoContents.forEach(item => item.draw());
 }
 
 function animate(){
@@ -185,26 +245,17 @@ function animate(){
 };
 animate();
 
-
+let fillMode = false;
+let selectedTank;
+// let drainMode = false;
 canvas.addEventListener("click", function(event) {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-
-    // canvas.classList.add('hidden')
-
-    if (
-        x > canvas.width / 3 - 50 &&
-        x < canvas.width / 3 + 50 &&
-        y > canvas.height / 2 - 25 &&
-        y < canvas.height / 2 + 25
-    ) {
-        console.log("Button clicked!");
-    }
-
     const screenX = event.clientX - rect.left;
     const screenY = event.clientY - rect.top;
-    console.log("WORLD: ", cameraOffset.x + mouseLocation.x, cameraOffset.y + mouseLocation.y) // sprite coords
+    //testing
+    // console.log("WORLD: ", cameraOffset.x + mouseLocation.x, cameraOffset.y + mouseLocation.y) // sprite coords
     
     // clicking sprites
     selectables.forEach(sprite => {
@@ -216,21 +267,44 @@ canvas.addEventListener("click", function(event) {
         ) {
             console.log(`CLICKED ${JSON.stringify(sprite.name)}`);
 
-            // sprite.selected = sprite.selected ? false : true;
-            // sprite.selectSprite();
+            if(sprite.name === "tank1"){
+                //check if empty and allow to fill
+                if(sprite.isEmpty){
+                    console.log('tank is empty')
+                    fillMode = true;
+                    selectedTank = sprite;
+                }else{
+                    fillMode=false;
+                    canvas.classList.add('hidden')
+                    topView.classList.remove('hidden')
+                }
+            }
 
             if(sprite.name === "next"){
-                // spriteTooltip.classList.remove('hidden');
                 currentPage++;
             }
             if(sprite.name === "previous"){
                 currentPage--;
             }
-
-            //TESTING
-            if(sprite.name === 'tank1'){
-                canvas.classList.add('hidden')
-                topView.classList.remove('hidden')
+            //can fill empty tanks only
+            if(sprite.name === "faucet"){
+                if(fillMode){
+                    console.log('filling the tank')
+                    selectedTank.image = tankFreshwaterFrontImage;
+                    selectedTank.selectedImg = tankFreshwaterFrontImageSelected;
+                    selectedTank.isEmpty = false;
+                }
+            }
+            //can only drain filled tanks
+            if(sprite.name === "drain"){
+                if(fillMode){
+                    console.log('cannot drain an empty tank!')
+                }else{
+                    console.log('draining the tank')
+                    selectedTank.image = tankEmptyFrontImage;
+                    selectedTank.selectedImg = tankEmptyFrontImageSelected;
+                    selectedTank.isEmpty = true;
+                }
             }
         }
     });
@@ -252,6 +326,7 @@ document.addEventListener('mousemove', (e) => {
             sprite.selected = true;
             sprite.selectSprite();
         }else{
+            if(sprite.name === "tank1"){return}
             // canvas.style.cursor = 'default';
             sprite.unselectSprite();
         }
