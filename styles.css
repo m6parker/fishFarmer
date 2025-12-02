@@ -98,7 +98,8 @@ body{
     border: 5px solid black;
 }
 
-.water-options{
+
+/* .water-options{
     position:absolute;
     border: 3px solid white;
     border-radius: 10px;
@@ -109,7 +110,7 @@ body{
 .water-options>div:hover, .selected-water{
     background-color: blue !important;
     color: white !important;
-}
+} */
 .saltwater{
     background-color: rgb(41, 255, 187);
 }

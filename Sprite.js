@@ -1,12 +1,12 @@
 class Sprite{
-    constructor({position, image, height, width, selectedImg, name, isEmpty=true}){
+    constructor({position, image, height, width, selectedImg, name, isEmpty=true, unselectedImg=null}){
         this.position = position;
         this.image = image;
         this.height = height;
         this.width = width;
         this.selected = false;
         this.selectedImg = selectedImg;
-        this.unselectedImg = image;
+        this.unselectedImg = unselectedImg;
         this.name = name;
         this.isEmpty = isEmpty;
         
@@ -23,6 +23,7 @@ class Sprite{
     }
 
     unselectSprite(){
+        // this.image = this.unselectedImg;
         this.image = this.unselectedImg;
     }
 }

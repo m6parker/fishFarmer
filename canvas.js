@@ -80,6 +80,7 @@ const prevPageSprite = new Sprite({
     height: 100,
     name: 'previous',
     selectedImg: prevImageSelected,
+    unselectedImg: prevImage
 });
 
 const nextPageSprite = new Sprite({
@@ -92,6 +93,7 @@ const nextPageSprite = new Sprite({
     height: 100,
     name: 'next',
     selectedImg: nextImageSelected,
+    unselectedImg: nextImage
 });
 
 const noteSprite = new Sprite({
@@ -104,6 +106,7 @@ const noteSprite = new Sprite({
     height: 550,
     name: 'note',
     selectedImg: noteImage,
+    unselectedImg: noteImage
 });
 
 const faucetSprite = new Sprite({
@@ -116,6 +119,7 @@ const faucetSprite = new Sprite({
     height: 100,
     name: 'faucet',
     selectedImg: faucetImageSelected,
+    unselectedImg: faucetImage
 });
 
 const drainSprite = new Sprite({
@@ -128,6 +132,7 @@ const drainSprite = new Sprite({
     height: 100,
     name: 'drain',
     selectedImg: drainImageSelected,
+    unselectedImg: drainImage
 });
 
 const blueprintPaperSprite = new Sprite({
@@ -198,6 +203,7 @@ const tank1Sprite = new Sprite({
     height: 100,
     name: 'tank1',
     selectedImg: tankEmptyFrontImageSelected,
+    unselectedImg: tankEmptyFrontImage,
     isEmpty: true
 });
 
@@ -211,6 +217,7 @@ const tank2Sprite = new Sprite({
     height: 100,
     name: 'tank2',
     selectedImg: tankEmptyFrontImageSelected,
+    unselectedImg: tankEmptyFrontImage,
     isEmpty: true
 });
 
@@ -224,6 +231,7 @@ const tank3Sprite = new Sprite({
     height: 100,
     name: 'tank3',
     selectedImg: tankEmptyFrontImageSelected,
+    unselectedImg: tankEmptyFrontImage,
     isEmpty: true
 });
 
@@ -258,6 +266,36 @@ const waterTypes = [
 let currentWaterSelected = 0;
 function changeWaterSelection(type){
     waterTypes[type].draw();
+}
+
+function fillTank(tank, type){
+    if(type === 'freshwater'){
+        tank.image = tankFreshwaterFrontImage;
+        tank.unselectedImg = tankFreshwaterFrontImage;
+        tank.selectedImg = tankFreshwaterFrontImageSelected;
+    }
+    if(type === 'saltwater'){
+        tank.image = tankSaltwaterFrontImage;
+        tank.unselectedImg = tankSaltwaterFrontImage
+        tank.selectedImg = tankSaltwaterFrontImageSelected;
+    }
+    if(type === 'brackish'){
+        tank.image = tankBrackishFrontImage;
+        tank.unselectedImg = tankBrackishFrontImage
+        tank.selectedImg = tankBrackishFrontImageSelected;
+    }
+    if(type === 'tropical'){
+        tank.image = tankTropicalFrontImage;
+        tank.unselectedImg = tankTropicalFrontImage
+        tank.selectedImg = tankTropicalFrontImageSelected;
+    }
+    tank.isEmpty = false;
+};
+
+function unselectAllBlueprintItems(){
+    tank1Sprite.selected = false;
+    tank2Sprite.selected = false;
+    tank3Sprite.selected = false;
 }
 
 const pageTwoContents = [];
@@ -310,7 +348,7 @@ function animate(){
     ctx.fillRect(300, 1050, 100, 100);
 
     //Testing
-    drawGrid();
+    // drawGrid();
 
 };
 animate();
@@ -330,16 +368,12 @@ canvas.addEventListener("click", function(event) {
     //click water buttons (not sprite)
     if (x >= 300 && x <= 400){
         if(y >= 750 && y <= 850){
-            console.log('freshwater');
             currentWaterSelected = 0;
         }else if(y >= 850 && y <= 950){
-            console.log('saltwater');
             currentWaterSelected = 1;
         }else if(y >= 950 && y <= 1050){
-            console.log('tropical');
             currentWaterSelected = 2;
         }else if(y >= 1050 && y <= 1150){
-            console.log('brackish');
             currentWaterSelected = 3;
         }
     }
@@ -352,20 +386,25 @@ canvas.addEventListener("click", function(event) {
             mouseLocation.y >= sprite.position.y &&
             mouseLocation.y <= sprite.position.y + sprite.height
         ) {
-            console.log(`CLICKED ${JSON.stringify(sprite.name)}`);
-
-            if(sprite.name === "tank1"){
+            console.log(`CLICKED ${JSON.stringify(sprite.name)}`); // testing
+            
+            if(sprite.name === "tank1" || sprite.name === "tank2" ||sprite.name === "tank3" ){
+                selectedTank = sprite;
+                sprite.selectSprite();
+                unselectAllBlueprintItems();
+                //select last clicked tank
+                sprite.selected = true;
+                
                 //check if empty and allow to fill
                 if(sprite.isEmpty){
-                    console.log('tank is empty')
                     fillMode = true;
-                    selectedTank = sprite;
+                    console.log('tank is empty')
                 }else{
                     fillMode=false;
 
                     //show tanks
-                    canvas.classList.add('hidden')
-                    topView.classList.remove('hidden')
+                    // canvas.classList.add('hidden')
+                    // topView.classList.remove('hidden')
                 }
             }
 
@@ -378,26 +417,26 @@ canvas.addEventListener("click", function(event) {
             //can fill empty tanks only
             if(sprite.name === "faucet"){
                 if(fillMode){
-                    console.log('filling the tank')
+                    console.log('filling the tank with: ', waterTypes[currentWaterSelected].name)
                     
-                    //pick a type of watter to fill tank
-                    waterSelection.classList.remove('hidden')
-                    
-                    // selectedTank.image = tankFreshwaterFrontImage;
-                    // selectedTank.selectedImg = tankFreshwaterFrontImageSelected;
-                    // selectedTank.isEmpty = false;
+                    // fills selected tank with sected water 
+                    fillTank(selectedTank, waterTypes[currentWaterSelected].name) // tank, image
                 }
+                unselectAllBlueprintItems();
             }
             //can only drain filled tanks
             if(sprite.name === "drain"){
                 if(fillMode){
                     console.log('cannot drain an empty tank!')
                 }else{
-                    console.log('draining the tank')
+                    console.log('draining ', selectedTank.name)
+                    //todo - empty tank function
                     selectedTank.image = tankEmptyFrontImage;
                     selectedTank.selectedImg = tankEmptyFrontImageSelected;
+                    selectedTank.unselectedImg = tankEmptyFrontImage;
                     selectedTank.isEmpty = true;
                 }
+                unselectAllBlueprintItems();
             }
         }
     });
@@ -416,11 +455,10 @@ document.addEventListener('mousemove', (e) => {
             mouseLocation.y <= sprite.position.y + sprite.height
         ){
             canvas.style.cursor = 'pointer';
-            sprite.selected = true;
             sprite.selectSprite();
         }else{
-            if(sprite.name === "tank1"){return}
-            // canvas.style.cursor = 'default';
+            canvas.style.cursor = 'default';
+            if(sprite.selected){return;}
             sprite.unselectSprite();
         }
     });

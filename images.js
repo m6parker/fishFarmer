@@ -60,3 +60,18 @@ const tankFreshwaterFrontImage = new Image();
 tankFreshwaterFrontImage.src = 'img/ui/tanks/tankFreshwaterFront.png';
 const tankFreshwaterFrontImageSelected = new Image();
 tankFreshwaterFrontImageSelected.src = 'img/ui/tanks/tankFreshwaterFrontSelected.png';
+
+const tankSaltwaterFrontImage = new Image();
+tankSaltwaterFrontImage.src = 'img/ui/tanks/tankSaltwaterFront.png';
+const tankSaltwaterFrontImageSelected = new Image();
+tankSaltwaterFrontImageSelected.src = 'img/ui/tanks/tankSaltwaterFrontSelected.png';
+
+const tankTropicalFrontImage = new Image();
+tankTropicalFrontImage.src = 'img/ui/tanks/tankTropicalFront.png';
+const tankTropicalFrontImageSelected = new Image();
+tankTropicalFrontImageSelected.src = 'img/ui/tanks/tankTropicalFrontSelected.png';
+
+const tankBrackishFrontImage = new Image();
+tankBrackishFrontImage.src = 'img/ui/tanks/tankBrackishFront.png';
+const tankBrackishFrontImageSelected = new Image();
+tankBrackishFrontImageSelected.src = 'img/ui/tanks/tankBrackishFrontSelected.png';

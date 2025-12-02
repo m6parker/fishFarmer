@@ -126,28 +126,28 @@ waterOptions.forEach(option => {
     });
 });
 
-const fillButton = document.querySelector('.fill-button');
-fillButton.addEventListener('click', ()=>{
-    const selectedWater = document.querySelector('.selected-water');
-    if(!selectedWater){return;}
-    const selectedTank = document.querySelector('.selected-tank');
-    const tankName = `tank${tankCounter}`;
-    selectedTank.setAttribute('name', tankName)
-    tankCounter++;
+// const fillButton = document.querySelector('.fill-button');
+// fillButton.addEventListener('click', ()=>{
+//     const selectedWater = document.querySelector('.selected-water');
+//     if(!selectedWater){return;}
+//     const selectedTank = document.querySelector('.selected-tank');
+//     const tankName = `tank${tankCounter}`;
+//     selectedTank.setAttribute('name', tankName)
+//     tankCounter++;
 
-    const newTank = new Tank(selectedWater.textContent, 20, tankName);
-    selectedTank.classList.remove('empty');
-    selectedTank.innerHTML = `
-        <div>${newTank.name}</div>
-        <div>${newTank.fishes.length}</div>
-    `;
-    selectedTank.classList.add(selectedWater.textContent)
-    filledAquariums.push(newTank);
+//     const newTank = new Tank(selectedWater.textContent, 20, tankName);
+//     selectedTank.classList.remove('empty');
+//     selectedTank.innerHTML = `
+//         <div>${newTank.name}</div>
+//         <div>${newTank.fishes.length}</div>
+//     `;
+//     selectedTank.classList.add(selectedWater.textContent)
+//     filledAquariums.push(newTank);
 
-    waterOptionContainer.classList.add('hidden');
-    unselectAllTanks();
-    unselectAllWater();
-});
+//     waterOptionContainer.classList.add('hidden');
+//     unselectAllTanks();
+//     unselectAllWater();
+// });
 
 
 function unselectAllTanks(){
