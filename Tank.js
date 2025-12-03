@@ -20,4 +20,10 @@ class Tank {
     totalFish(){
         return this.fishes.length;
     }
+
+    showFish(){
+        this.fishes.forEach(fish => {
+            fish.render(this.element);
+        });
+    }
 }

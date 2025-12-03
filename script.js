@@ -57,7 +57,7 @@ function loop() {
     if (focusedTank && focusedTank.open) {
         focusedTank.fishes.forEach(fish => {
             fish.swim();
-            fish.render();
+            // fish.render();
         });
     }
     requestAnimationFrame(loop);
