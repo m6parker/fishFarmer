@@ -1,12 +1,11 @@
 const aquariumContainer = document.querySelector('.aquarium-container');
 const addContainer = document.querySelector('.add-container');
-const fishOptions = document.querySelectorAll('.fish-option');
-const buyButton = document.querySelector('.buy-button');
 
 let focusedTank;
 let MONEY = 0;
 let filledAquariums = [];
 let fishes = [];
+let decor = [];
 let tankCounter = 1;
 let goldfish = {
     species: 'goldfish',
@@ -44,11 +43,21 @@ let fishSpecies = [
 ]
 
 // place fish in the tank at random heights using the tanks boundaries
-function getRandomPositionHeight(){
-    const tankContainer = document.querySelector(`.${focusedTank.name}`);
-    const rect = tankContainer.getBoundingClientRect();
+function getRandomPositionHeight(type){
+    // todo - set bounds for differetn size tanks
+    // const tankContainer = document.querySelector(`.${focusedTank.name}`);
+    // const rect = tankContainer.getBoundingClientRect();
     // return Math.floor(Math.random() * (rect.height)-200) + rect.top;
-    return (Math.random() * (550) + 300);
+    if(type==='fish'){
+        // return (Math.random() * (550) + 300);
+        return getRandomFloat(300, 850)
+    }else if(type==='decor'){
+        return (Math.random() * (850) + 300);
+    }
+}
+
+function getRandomFloat(min, max) {
+  return Math.random() * (max - min) + min;
 }
 
 function loop() {
@@ -62,23 +71,25 @@ function loop() {
 }
 loop();
 
+const fishOptions = document.querySelectorAll('.fish-option');
 fishOptions.forEach(option => {
     option.addEventListener('click', ()=>{
         unselectAllFish();
-        option.classList.add('selected');
+        option.classList.add('selected-fish');
     })
 });
 
+const buyButton = document.querySelector('.buy-button');
 buyButton.addEventListener('click', ()=>{
     const tankContainer = document.querySelector(`.${focusedTank.name}`);
-    const option = document.querySelector('.selected');    
+    const option = document.querySelector('.selected-fish');    
     if (!option) {
         console.error("no fish selected!");
         return;
     }
     const rect = tankContainer.getBoundingClientRect();
     const species = fishSpecies.find(fish => fish.species === option.id);
-console.log(rect.left, rect.width, rect.right)
+
     if(species){
         const newFish = new Fish({
             type: option.textContent,
@@ -86,12 +97,38 @@ console.log(rect.left, rect.width, rect.right)
             speed: species.speed,
             disposition: species.disposition,
             x: rect.left +70,
-            y: getRandomPositionHeight()
+            y: getRandomFloat(300, 800),
         });
         fishes.push(newFish); //all fish - todo remove eventually
         focusedTank.addFish(newFish)
     }else{
         console.log('error adding fish')
+    }
+});
+
+const decorOptions = document.querySelectorAll('.decor-option');
+decorOptions.forEach(option => {
+    option.addEventListener('click', ()=>{
+        unselectAllDecor();
+        option.classList.add('selected-decor');
+    })
+});
+
+document.querySelector('.buy-decor-button').addEventListener('click', ()=>{
+    // const tankContainer = document.querySelector(`.${focusedTank.name}`);
+    const option = document.querySelector('.selected-decor');    
+    // const rect = tankContainer.getBoundingClientRect();
+
+    if(option){
+        const newDecor = new Decor({
+            type: option.textContent,
+            tank: focusedTank,
+            x: getRandomPositionHeight('decor'),
+            y: getRandomFloat(750, 770),
+        });
+        decor.push(newDecor);
+    }else{
+        console.log(`error adding ${decor.type}`)
     }
 });
 
@@ -130,7 +167,11 @@ function openTank(tank, waterType){
 }
 
 function unselectAllFish(){
-    fishOptions.forEach(op=>{op.classList.remove('selected')});
+    fishOptions.forEach(op=>{op.classList.remove('selected-fish')});
+}
+
+function unselectAllDecor(){
+    decorOptions.forEach(op=>{op.classList.remove('selected-decor')});
 }
 
 // function updateTankFishCount(tankName) {

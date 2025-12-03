@@ -39,6 +39,7 @@ class Fish {
         event.stopPropagation();
         console.log('clicked ', this.type, this.tank);
         const info = document.querySelector('.fish-info');
+        this.calculateHappiness();
 
         if(this.selected){
             this.selected = false;
@@ -89,17 +90,16 @@ class Fish {
 
     calculateHappiness(){
         //todo - based off schooling and water type/temp
-
-        console.log(this)
-
-        return '100%';
+        let happiness = 100;
+        if(this.tank.fishes.length > 10){
+            happiness = happiness - 25;
+        }
+        return `${happiness}%`;
     }
 
     render(aquarium){
         // Only render if the fishs tank is open
         if (this.tank.open) {
-        //     const aquarium = document.querySelector(`.${this.tank.name}`);
-        //     aquarium.appendChild(this.element);
             this.element.style.left = `${this.x}px`;
             this.element.style.top = `${this.y}px`;
 
@@ -108,7 +108,6 @@ class Fish {
                 aquarium.appendChild(this.element);
             }
             this.swim();
-            // this.element.addEventListener('click',  this.handleFishClick)
         }
     }
 }

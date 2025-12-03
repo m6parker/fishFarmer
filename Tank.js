@@ -28,6 +28,10 @@ class Tank {
             });
         }
     }
+    
+    addFish(fish) {
+        this.fishes.push(fish);
+    }
 
     openAquarium() {
         this.open = true;
@@ -39,11 +43,10 @@ class Tank {
         this.element.classList.add('hidden');
     }
 
-    addFish(fish) {
-        this.fishes.push(fish);
-    }
-
     changeWaterType(water){
+        //remove the old watertype - todo - probably going to be used for dirtywater changes
+        this.element.classList.remove(`aquarium-${this.type}`);
+        //replace with new water
         this.type = water;
         this.element.classList.add(`aquarium-${water}`);
     }

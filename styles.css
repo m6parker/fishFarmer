@@ -45,22 +45,6 @@ body{
     background-image: url('img/sideViewTanks/focusedTank_brackish.png');
 }
 
-.add-container{
-    border: 2px solid white;
-    border-radius: 10px;
-    padding: 10px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
-}
-
-.add-container>div:hover, .selected{
-    background-color: blue;
-    color: white;
-}
-
 .map-button{
     position: absolute;
     border: 2px solid white;
@@ -116,4 +100,40 @@ body{
 button{
     width: 200px;
     padding: 20px;
+    border-radius: 10px;
+}
+
+label{
+    background-color: black;
+}
+/*------------- items to buy ---------------*/
+
+.add-container{
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.add-container>div:hover, .selected-fish, .selected-decor{
+    background-color: blue;
+    color: white;
+}
+
+.add-container>div{
+    padding: 10px;
+}
+
+/* -------------- decor -------------------- */
+
+.decor{
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size:contain;
+    position: absolute;
 }
