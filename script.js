@@ -77,14 +77,14 @@ buyButton.addEventListener('click', ()=>{
     }
     const rect = tankContainer.getBoundingClientRect();
     const species = fishSpecies.find(fish => fish.species === option.id);
-
+console.log(rect.left, rect.width, rect.right)
     if(species){
         const newFish = new Fish({
             type: option.textContent,
             tank: focusedTank,
             speed: species.speed,
             disposition: species.disposition,
-            x: rect.left,
+            x: rect.left +70,
             y: getRandomPositionHeight()
         });
         fishes.push(newFish); //all fish - todo remove eventually

@@ -69,15 +69,15 @@ class Fish {
 
         if (this.direction === 'right') {
             this.x += this.speed;
-            if (this.x > rect.right - 200) {
-                this.x = rect.right - 200;
+            if (this.x > rect.right - 110) {
+                this.x = rect.right - 110;
                 this.direction = 'left';
                 this.element.classList = `fish ${this.type} fish-left`;
             }
         } else {
             this.x -= this.speed;
-            if (this.x < rect.left) {
-                this.x = rect.left;
+            if (this.x < rect.left+70) {
+                this.x = rect.left+70;
                 this.direction = 'right';
                 this.element.classList = `fish ${this.type} fish-right`;
             }
