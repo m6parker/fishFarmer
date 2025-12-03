@@ -95,10 +95,13 @@ class Fish {
 
     render(aquarium){
         // Only render if the fishs tank is open
-        // if (this.tank.open) {
+        if (this.tank.open) {
         //     const aquarium = document.querySelector(`.${this.tank.name}`);
         //     aquarium.appendChild(this.element);
-        // }
-        aquarium.appendChild(this.element);
+            this.element.style.left = `${this.x}px`;
+            this.element.style.top = `${this.y}px`;
+            aquarium.appendChild(this.element);
+            this.swim();
+        }
     }
 }

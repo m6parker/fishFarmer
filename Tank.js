@@ -21,9 +21,27 @@ class Tank {
         return this.fishes.length;
     }
 
-    showFish(){
-        this.fishes.forEach(fish => {
-            fish.render(this.element);
-        });
+    showFish() {
+        if (this.open) {
+            this.fishes.forEach(fish => {
+                fish.render(this.element);
+            });
+        }
     }
+
+    openAquarium() {
+        this.open = true;
+        this.element.classList.remove('hidden');
+    }
+
+    closeAquarium() {
+        this.open = false;
+        this.element.classList.add('hidden');
+    }
+
+    addFish(fish) {
+        this.fishes.push(fish);
+    }
+
+
 }

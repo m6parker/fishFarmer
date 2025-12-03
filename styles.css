@@ -14,16 +14,8 @@ body{
     margin: 0;
     padding: 0;
     background-color: rgba(0, 0, 0, 0.832);
-    /* font-family: monospace;
-    background-color: rgb(0, 0, 0);
     color: white;
-    height: 100vh;
-    width: 100vw;
-    background-image: url(img/notebook/wood3.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size:cover;
-    image-rendering: pixelated; */
+    font-size: x-large;
 }
 
 .container{
@@ -33,9 +25,9 @@ body{
 }
 
 .aquarium{
-    height: 90vh;
-    width: 90vw;
-    background-image: url('img/sideViewTanks/sideViewTank.png');
+    height: 80vh;
+    width: 80vw;
+    background-image: url('img/sideViewTanks/sideViewTank2.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size:cover;

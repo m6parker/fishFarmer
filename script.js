@@ -55,10 +55,7 @@ function loop() {
     if(aquarium)aquarium.innerHTML = '';
 
     if (focusedTank && focusedTank.open) {
-        focusedTank.fishes.forEach(fish => {
-            fish.swim();
-            // fish.render();
-        });
+        focusedTank.showFish();
     }
     requestAnimationFrame(loop);
 }
@@ -73,7 +70,11 @@ fishOptions.forEach(option => {
 
 buyButton.addEventListener('click', ()=>{
     const tankContainer = document.querySelector(`.${focusedTank.name}`);
-    const option = document.querySelector('.selected');
+    const option = document.querySelector('.selected');    
+    if (!option) {
+        console.error("no fish selected!");
+        return;
+    }
     const rect = tankContainer.getBoundingClientRect();
     const species = fishSpecies.find(fish => fish.species === option.id);
 
@@ -86,8 +87,8 @@ buyButton.addEventListener('click', ()=>{
             x: rect.left,
             y: getRandomPositionHeight()
         });
-        fishes.push(newFish);
-        focusedTank.fishes.push(newFish)
+        fishes.push(newFish); //all fish - todo remove eventually
+        focusedTank.addFish(newFish)
     }else{
         console.log('error adding fish')
     }
@@ -109,20 +110,8 @@ function openNotebook(){
     canvas.classList.remove('hidden');
     aquariumContainer.classList.add('hidden');
     addContainer.classList.add('hidden');
-
-    //close all tanks
-    // if(tank1.classList.contains('open'))tank1.classList.remove('open')
-    // if(tank2.classList.contains('open'))tank2.classList.remove('open')
-    // if(tank3.classList.contains('open'))tank3.classList.remove('open')
     
-    focusedTank.open = false;
-    // tanks.forEach(tank => tank.open = false);
-
-    const aquariums = document.querySelectorAll('.aquarium');
-    aquariums.forEach(aquarium => {
-        // aquarium.innerHTML = '';
-        aquarium.classList.add('hidden');
-    });
+    focusedTank.closeAquarium();
 
 };
 
@@ -133,11 +122,8 @@ function openTank(tank, waterType){
 
     focusedTank = tanks.find(t => t.name === tank);
     focusedTank.type = waterType;
-    focusedTank.open = true;
+    focusedTank.openAquarium();
     
-    document.querySelector(`.${tank}`).classList.remove('hidden');
-    // document.querySelector(`.${tank}`).classList.add('open');
-
     console.log(tank, waterType, focusedTank)
     document.querySelector('.tank-title').textContent = `water type: ${focusedTank.type}`;
 }
