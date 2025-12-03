@@ -121,10 +121,10 @@ function openTank(tank, waterType){
     addContainer.classList.remove('hidden');
 
     focusedTank = tanks.find(t => t.name === tank);
-    focusedTank.type = waterType;
     focusedTank.openAquarium();
+    focusedTank.changeWaterType(waterType);
+    console.log(tank, focusedTank, waterType, focusedTank.type)
     
-    console.log(tank, waterType, focusedTank)
     document.querySelector('.tank-title').textContent = `water type: ${focusedTank.type}`;
 }
 
