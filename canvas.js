@@ -204,7 +204,8 @@ const tank1Sprite = new Sprite({
     name: 'tank1',
     selectedImg: tankEmptyFrontImageSelected,
     unselectedImg: tankEmptyFrontImage,
-    isEmpty: true
+    isEmpty: true,
+    waterType: null,
 });
 
 const tank2Sprite = new Sprite({
@@ -218,7 +219,8 @@ const tank2Sprite = new Sprite({
     name: 'tank2',
     selectedImg: tankEmptyFrontImageSelected,
     unselectedImg: tankEmptyFrontImage,
-    isEmpty: true
+    isEmpty: true,
+    waterType: null,
 });
 
 const tank3Sprite = new Sprite({
@@ -232,7 +234,8 @@ const tank3Sprite = new Sprite({
     name: 'tank3',
     selectedImg: tankEmptyFrontImageSelected,
     unselectedImg: tankEmptyFrontImage,
-    isEmpty: true
+    isEmpty: true,
+    waterType: null,
 });
 
 const selectables = [
@@ -407,9 +410,10 @@ canvas.addEventListener("click", function(event) {
                     console.log('tank is empty')
                 }else{
                     fillMode=false;
+
                     //show tank inside!!!!
                     if(canOpenTank){
-                        openTank(sprite.name);
+                        openTank(sprite.name, sprite.waterType); 
                     }
                 }
                 canOpenTank = false;
@@ -425,7 +429,8 @@ canvas.addEventListener("click", function(event) {
             if(sprite.name === "faucet"){
                 if(fillMode){
                     console.log('filling the tank with: ', waterTypes[currentWaterSelected].name)
-                    
+                    selectedTank.waterType = waterTypes[currentWaterSelected].name;
+
                     // fills selected tank with sected water 
                     fillTank(selectedTank, waterTypes[currentWaterSelected].name) // tank, image
                 }

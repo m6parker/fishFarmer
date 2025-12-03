@@ -1,116 +1,100 @@
-const sideViewAquarium1 = document.querySelector('.tank1');
-const sideViewAquarium2 = document.querySelector('.tank2');
-const sideViewAquarium3 = document.querySelector('.tank3');
+const aquariumContainer = document.querySelector('.aquarium-container');
 const addContainer = document.querySelector('.add-container');
+const fishOptions = document.querySelectorAll('.fish-option');
+const buyButton = document.querySelector('.buy-button');
 
-// const fishOptions = document.querySelectorAll('.fish-option');
-// const buyButton = document.querySelector('.buy-button');
+let focusedTank;
 let MONEY = 0;
-// let fishes = [];
 let filledAquariums = [];
-// let tankCounter = 1;
-// // let currentTank = '';
-// let goldfish = {
-//     species: 'goldfish',
-//     speed: 3,
-//     type: 'freshwater',
-//     disposition: 'friendly',
-//     school: false
-// };
-// let neonTetra = {
-//     species: 'neonTetra',
-//     speed: 5,
-//     type: 'tropical',
-//     disposition: 'friendly',
-//     school: true
-// };
-// let minnow = {
-//     species: 'minnow',
-//     speed: 5,
-//     type: 'freshwater',
-//     disposition: 'friendly',
-//     school: true
-// };
-// let tigerBarb = {
-//     species: 'tigerBarb',
-//     speed: 4,
-//     type: 'tropical',
-//     disposition: 'aggressive',
-//     school: true
-// };
-// let fishSpecies = [
-//     goldfish,
-//     tigerBarb,
-//     minnow,
-//     neonTetra
-// ]
+let fishes = [];
+let tankCounter = 1;
+let goldfish = {
+    species: 'goldfish',
+    speed: 3,
+    type: 'freshwater',
+    disposition: 'friendly',
+    school: false
+};
+let neonTetra = {
+    species: 'neonTetra',
+    speed: 5,
+    type: 'tropical',
+    disposition: 'friendly',
+    school: true
+};
+let minnow = {
+    species: 'minnow',
+    speed: 5,
+    type: 'freshwater',
+    disposition: 'friendly',
+    school: true
+};
+let tigerBarb = {
+    species: 'tigerBarb',
+    speed: 4,
+    type: 'tropical',
+    disposition: 'aggressive',
+    school: true
+};
+let fishSpecies = [
+    goldfish,
+    tigerBarb,
+    minnow,
+    neonTetra
+]
 
-// // place fish in the tank at random heights using the tanks boundaries
-// function getRandomPositionHeight(){
-//     const tankContainer = document.querySelector(`.${currentTank}`);
-//     const rect = tankContainer.getBoundingClientRect();
-//     return Math.floor(Math.random() * (rect.height - 50)) + rect.top;
-// }
+// place fish in the tank at random heights using the tanks boundaries
+function getRandomPositionHeight(){
+    const tankContainer = document.querySelector(`.open`);
+    const rect = tankContainer.getBoundingClientRect();
+    return Math.floor(Math.random() * (rect.height - 50)) + rect.top;
+}
 
-// function loop() {
-//     fishes.forEach(fish => {
-//         fish.swim();
-//     });
-//     requestAnimationFrame(loop);
-// }
-// loop();
+function loop() {
+    fishes.forEach(fish => {
+        fish.swim();
+    });
+    requestAnimationFrame(loop);
+}
+loop();
 
-// fishOptions.forEach(option => {
-//     option.addEventListener('click', ()=>{
-//         unselectAllFish();
-//         option.classList.add('selected');
-//     })
-// });
+fishOptions.forEach(option => {
+    option.addEventListener('click', ()=>{
+        unselectAllFish();
+        option.classList.add('selected');
+    })
+});
 
-// buyButton.addEventListener('click', ()=>{
-//     const tankContainer = document.querySelector(`.${currentTank}`);
-//     const option = document.querySelector('.selected');
-//     const rect = tankContainer.getBoundingClientRect();
-//     const species = fishSpecies.find(fish => fish.species === option.id);
-//     const focusedTank = filledAquariums.find(tank => tank.name === currentTank);
+buyButton.addEventListener('click', ()=>{
+    const tankContainer = document.querySelector(`.aquarium`);
+    const option = document.querySelector('.selected');
+    const rect = tankContainer.getBoundingClientRect();
+    const species = fishSpecies.find(fish => fish.species === option.id);
+    // const focusedTank = document.querySelector('.open');
 
-//     if(species){
-//         const newFish = new Fish(
-//             option.textContent,
-//             focusedTank.name,
-//             species.speed,
-//             species.disposition,
-//             rect.left,
-//             getRandomPositionHeight()
-//         );
-//         fishes.push(newFish);
-//         focusedTank.fishes.push(newFish)
-//     }else{
-//         console.log('error adding fish')
-//     }
-// });
+    if(species){
+        const newFish = new Fish(
+            option.textContent,
+            // focusedTank.name,
+            focusedTank,
+            species.speed,
+            species.disposition,
+            rect.left,
+            getRandomPositionHeight()
+        );
+        fishes.push(newFish);
+        focusedTank.fishes.push(newFish)
+    }else{
+        console.log('error adding fish')
+    }
+});
 
-// const aquariums = document.querySelectorAll('.aquarium');
-// const topView = document.querySelector('.top-view');
-// const sideView = document.querySelector('.side-view');
-// // const waterSelection = document.querySelector('.water-selection');
-// // const waterOptionContainer = document.querySelector('.water-options');
-// // const waterOptions = document.querySelectorAll('.water-option');
-// // aquariums.forEach(aquarium => {
-// //     aquarium.addEventListener('click', ()=>{
-// //         unselectAllTanks();
-// //         aquarium.classList.add('selected-tank');
-// //         console.log(filledAquariums)
-// //         if(aquarium.classList.contains('empty')){
-// //             waterOptionContainer.classList.remove('hidden');
-// //         }else{
-// //             topView.classList.add('hidden');
-// //             sideView.classList.remove('hidden');
-// //             currentTank = aquarium.getAttribute('name');
-// //             showSelectedTankUpClose(currentTank);
-// //         }
-// //     });
-// // });
+//create tanks
+const tank1 = new Tank('tank1');
+const tank2 = new Tank('tank2');
+const tank3 = new Tank('tank3');
+
+const tanks = [tank1, tank2, tank3];
 
 const mapButton = document.querySelector('.map-button');
 mapButton.addEventListener('click', ()=>{
@@ -119,24 +103,30 @@ mapButton.addEventListener('click', ()=>{
 
 function openNotebook(){
     canvas.classList.remove('hidden');
-    sideViewAquarium1.classList.add('hidden');
-    sideViewAquarium2.classList.add('hidden');
-    sideViewAquarium3.classList.add('hidden');
+    aquariumContainer.classList.add('hidden');
     addContainer.classList.add('hidden');
+
+    //close all tanks
+    // tank1.classList.remove('open')
+    // tank2.classList.remove('open')
+    // tank3.classList.remove('open')
+    focusedTank.open = false;
 };
 
-function openTank(tank){
+function openTank(tank, waterType){
     canvas.classList.add('hidden');
-    if(tank === 'tank1'){
-        sideViewAquarium1.classList.remove('hidden');
-    }
-    if(tank === 'tank2'){
-        sideViewAquarium2.classList.remove('hidden');
-    }
-    if(tank === 'tank3'){
-        sideViewAquarium3.classList.remove('hidden');
-    }
+    aquariumContainer.classList.remove('hidden');
     addContainer.classList.remove('hidden');
+
+    focusedTank = tanks.find(t => t.name === tank);
+    focusedTank.type = waterType;
+    focusedTank.open = true;
+    
+    document.querySelector(`.${tank}`).classList.remove('hidden');
+    document.querySelector(`.${tank}`).classList.add('open');
+
+    console.log(tank, waterType, focusedTank)
+    document.querySelector('.tank-title').textContent = `water type: ${focusedTank.type}`;
 }
 //     hideAllSideViewTanks();
 //     // topView.classList.remove('hidden');
@@ -182,9 +172,9 @@ function openTank(tank){
 // function unselectAllTanks(){
 //     aquariums.forEach(op=>{op.classList.remove('selected-tank')});
 // }
-// function unselectAllFish(){
-//     fishOptions.forEach(op=>{op.classList.remove('selected')});
-// }
+function unselectAllFish(){
+    fishOptions.forEach(op=>{op.classList.remove('selected')});
+}
 // function unselectAllWater(){
 //     waterOptions.forEach(op=>{op.classList.remove('selected-water')});
 // }

@@ -12,7 +12,7 @@ class Fish {
     }
     
     makeFish(){
-        const tankContainer = document.querySelector(`.${this.tank}`);
+        const tankContainer = document.querySelector(`.open`);
         const fish = document.createElement('div');
         fish.className = `fish ${this.type} fish-right`;
         fish.style.left = `${this.x}px`;
@@ -33,7 +33,6 @@ class Fish {
                 info.classList.remove('hidden');
                 info.innerHTML = `
                     <div>type: ${this.type}</div>
-                    <div>tank: ${this.tank}</div>
                     <div>disposition: ${this.disposition}</div>
                     <div>happiness: ${this.happiness}</div>
                 `;
@@ -59,14 +58,14 @@ class Fish {
     }
 
     swim(){
-        const tankContainer = document.querySelector(`.${this.tank}`);
+        const tankContainer = document.querySelector(`.${this.tank.name}`);
         const rect = tankContainer.getBoundingClientRect();
         if(this.selected){ return; }
 
         if (this.direction === 'right') {
             this.x += this.speed;
-            if (this.x > rect.right - 100) {
-                this.x = rect.right - 100;
+            if (this.x > rect.right - 200) {
+                this.x = rect.right - 200;
                 this.direction = 'left';
                 this.element.classList = `fish ${this.type} fish-left`;
             }
