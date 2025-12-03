@@ -47,7 +47,8 @@ let fishSpecies = [
 function getRandomPositionHeight(){
     const tankContainer = document.querySelector(`.${focusedTank.name}`);
     const rect = tankContainer.getBoundingClientRect();
-    return Math.floor(Math.random() * (rect.height - 250)) + rect.top;
+    // return Math.floor(Math.random() * (rect.height)-200) + rect.top;
+    return (Math.random() * (550) + 300);
 }
 
 function loop() {
