@@ -1,5 +1,10 @@
 const aquariumContainer = document.querySelector('.aquarium-container');
 const addContainer = document.querySelector('.add-container');
+const fishStoreButton = document.querySelector('.fish-store-button');
+
+fishStoreButton.addEventListener('click', ()=>{
+    addContainer.classList.toggle('hidden');
+});
 
 let focusedTank;
 let MONEY = 0;
@@ -15,7 +20,7 @@ let goldfish = {
     school: false
 };
 let neonTetra = {
-    species: 'neonTetra',
+    species: 'neon-tetra',
     speed: 5,
     type: 'tropical',
     disposition: 'friendly',
@@ -29,7 +34,7 @@ let minnow = {
     school: true
 };
 let tigerBarb = {
-    species: 'tigerBarb',
+    species: 'tiger-barb',
     speed: 4,
     type: 'tropical',
     disposition: 'aggressive',
@@ -75,6 +80,7 @@ const fishOptions = document.querySelectorAll('.fish-option');
 fishOptions.forEach(option => {
     option.addEventListener('click', ()=>{
         unselectAllFish();
+        unselectAllDecor();
         option.classList.add('selected-fish');
     })
 });
@@ -92,7 +98,7 @@ buyButton.addEventListener('click', ()=>{
 
     if(species){
         const newFish = new Fish({
-            type: option.textContent,
+            type: option.id,
             tank: focusedTank,
             speed: species.speed,
             disposition: species.disposition,
@@ -110,6 +116,7 @@ const decorOptions = document.querySelectorAll('.decor-option');
 decorOptions.forEach(option => {
     option.addEventListener('click', ()=>{
         unselectAllDecor();
+        unselectAllFish();
         option.classList.add('selected-decor');
     })
 });
@@ -148,6 +155,7 @@ function openNotebook(){
     canvas.classList.remove('hidden');
     aquariumContainer.classList.add('hidden');
     addContainer.classList.add('hidden');
+    // addContainer.classList.add('hidden');
     
     focusedTank.closeAquarium();
 
@@ -156,7 +164,7 @@ function openNotebook(){
 function openTank(tank, waterType){
     canvas.classList.add('hidden');
     aquariumContainer.classList.remove('hidden');
-    addContainer.classList.remove('hidden');
+    // addContainer.classList.remove('hidden');
 
     focusedTank = tanks.find(t => t.name === tank);
     focusedTank.openAquarium();

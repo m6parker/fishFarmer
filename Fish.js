@@ -55,7 +55,7 @@ class Fish {
                 <div>happiness: ${this.happiness}</div>
             `;
             info.style.left = `${this.x}px`;
-            info.style.top = `${this.y - 30}px`;
+            info.style.top = `${this.y - 50}px`;
 
             // make him swim again after 3 seconds
             setTimeout(() => {
