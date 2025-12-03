@@ -1,5 +1,5 @@
 class Fish {
-    constructor(type, tank, speed, disposition, x, y) {
+    constructor({type, tank, speed, disposition, x, y}) {
         this.type = type;
         this.tank = tank;
         this.speed = speed;
@@ -12,12 +12,13 @@ class Fish {
     }
     
     makeFish(){
-        const tankContainer = document.querySelector(`.open`);
+        const tankContainer = document.querySelector(`.${this.tank.name}`);
         const fish = document.createElement('div');
         fish.className = `fish ${this.type} fish-right`;
         fish.style.left = `${this.x}px`;
         fish.style.top = `${this.y}px`;
         fish.style.backgroundImage = `url('img/fish/${this.type}.png')`
+        console.log(tankContainer, fish, this)
         tankContainer.appendChild(fish);
 
         const info = document.querySelector('.fish-info');
@@ -86,5 +87,13 @@ class Fish {
         console.log(this)
 
         return '100%';
+    }
+
+    render(){
+        // Only render if the fishs tank is open
+        if (this.tank.open) {
+            const aquarium = document.querySelector(`.${this.tank.name}`);
+            aquarium.appendChild(this.element);
+        }
     }
 }

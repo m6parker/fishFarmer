@@ -45,15 +45,21 @@ let fishSpecies = [
 
 // place fish in the tank at random heights using the tanks boundaries
 function getRandomPositionHeight(){
-    const tankContainer = document.querySelector(`.open`);
+    const tankContainer = document.querySelector(`.${focusedTank.name}`);
     const rect = tankContainer.getBoundingClientRect();
-    return Math.floor(Math.random() * (rect.height - 50)) + rect.top;
+    return Math.floor(Math.random() * (rect.height - 250)) + rect.top;
 }
 
 function loop() {
-    fishes.forEach(fish => {
-        fish.swim();
-    });
+    const aquarium = document.querySelector('.aquarium');
+    if(aquarium)aquarium.innerHTML = '';
+
+    if (focusedTank && focusedTank.open) {
+        focusedTank.fishes.forEach(fish => {
+            fish.swim();
+            fish.render();
+        });
+    }
     requestAnimationFrame(loop);
 }
 loop();
@@ -66,22 +72,20 @@ fishOptions.forEach(option => {
 });
 
 buyButton.addEventListener('click', ()=>{
-    const tankContainer = document.querySelector(`.aquarium`);
+    const tankContainer = document.querySelector(`.${focusedTank.name}`);
     const option = document.querySelector('.selected');
     const rect = tankContainer.getBoundingClientRect();
     const species = fishSpecies.find(fish => fish.species === option.id);
-    // const focusedTank = document.querySelector('.open');
 
     if(species){
-        const newFish = new Fish(
-            option.textContent,
-            // focusedTank.name,
-            focusedTank,
-            species.speed,
-            species.disposition,
-            rect.left,
-            getRandomPositionHeight()
-        );
+        const newFish = new Fish({
+            type: option.textContent,
+            tank: focusedTank,
+            speed: species.speed,
+            disposition: species.disposition,
+            x: rect.left,
+            y: getRandomPositionHeight()
+        });
         fishes.push(newFish);
         focusedTank.fishes.push(newFish)
     }else{
@@ -107,10 +111,19 @@ function openNotebook(){
     addContainer.classList.add('hidden');
 
     //close all tanks
-    // tank1.classList.remove('open')
-    // tank2.classList.remove('open')
-    // tank3.classList.remove('open')
+    // if(tank1.classList.contains('open'))tank1.classList.remove('open')
+    // if(tank2.classList.contains('open'))tank2.classList.remove('open')
+    // if(tank3.classList.contains('open'))tank3.classList.remove('open')
+    
     focusedTank.open = false;
+    // tanks.forEach(tank => tank.open = false);
+
+    const aquariums = document.querySelectorAll('.aquarium');
+    aquariums.forEach(aquarium => {
+        // aquarium.innerHTML = '';
+        aquarium.classList.add('hidden');
+    });
+
 };
 
 function openTank(tank, waterType){
@@ -123,69 +136,16 @@ function openTank(tank, waterType){
     focusedTank.open = true;
     
     document.querySelector(`.${tank}`).classList.remove('hidden');
-    document.querySelector(`.${tank}`).classList.add('open');
+    // document.querySelector(`.${tank}`).classList.add('open');
 
     console.log(tank, waterType, focusedTank)
     document.querySelector('.tank-title').textContent = `water type: ${focusedTank.type}`;
 }
-//     hideAllSideViewTanks();
-//     // topView.classList.remove('hidden');
-//     canvas.classList.remove('hidden')
-//     sideView.classList.add('hidden');
-//     unselectAllFish(); 
-//     unselectAllTanks();
 
-//     updateTankFishCount(currentTank);
-// });
-
-// // waterOptions.forEach(option => {
-// //     option.addEventListener('click', ()=>{
-// //         unselectAllWater();
-// //         option.classList.add('selected-water');
-// //     });
-// // });
-
-// // const fillButton = document.querySelector('.fill-button');
-// // fillButton.addEventListener('click', ()=>{
-// //     const selectedWater = document.querySelector('.selected-water');
-// //     if(!selectedWater){return;}
-// //     const selectedTank = document.querySelector('.selected-tank');
-// //     const tankName = `tank${tankCounter}`;
-// //     selectedTank.setAttribute('name', tankName)
-// //     tankCounter++;
-
-// //     const newTank = new Tank(selectedWater.textContent, 20, tankName);
-// //     selectedTank.classList.remove('empty');
-// //     selectedTank.innerHTML = `
-// //         <div>${newTank.name}</div>
-// //         <div>${newTank.fishes.length}</div>
-// //     `;
-// //     selectedTank.classList.add(selectedWater.textContent)
-// //     filledAquariums.push(newTank);
-
-// //     waterOptionContainer.classList.add('hidden');
-// //     unselectAllTanks();
-// //     unselectAllWater();
-// // });
-
-
-// function unselectAllTanks(){
-//     aquariums.forEach(op=>{op.classList.remove('selected-tank')});
-// }
 function unselectAllFish(){
     fishOptions.forEach(op=>{op.classList.remove('selected')});
 }
-// function unselectAllWater(){
-//     waterOptions.forEach(op=>{op.classList.remove('selected-water')});
-// }
-// function hideAllSideViewTanks(){
-//     const sideViewTanks = document.querySelectorAll('.tank');
-//     sideViewTanks.forEach(op=>{op.classList.add('hidden')});
-// }
-// function showSelectedTankUpClose(tankName){
-//     console.log(tankName)
-//     document.querySelector(`.${tankName}`).classList.remove('hidden');
-// }
+
 // function updateTankFishCount(tankName) {
 //     const tankElement = document.querySelector(`.aquarium[name="${tankName}"]`);
 //     const tankInfo = filledAquariums.find(tank => tank.name === tankName);
