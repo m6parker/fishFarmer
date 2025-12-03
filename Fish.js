@@ -4,6 +4,7 @@ class Fish {
         this.tank = tank;
         this.speed = speed;
         this.disposition = disposition
+        this.direction = 'right';
         this.x = x;
         this.y = y;
         this.element = this.makeFish();
@@ -19,7 +20,7 @@ class Fish {
         fish.style.top = `${this.y}px`;
         fish.style.backgroundImage = `url('img/fish/${this.type}.png')`
         console.log(tankContainer, fish, this)
-        tankContainer.appendChild(fish);
+        // tankContainer.appendChild(fish);
 
         fish.addEventListener('click', this.handleFishClick.bind(this));
 
@@ -35,6 +36,7 @@ class Fish {
     }
 
     handleFishClick(event){
+        event.stopPropagation();
         console.log('clicked ', this.type, this.tank);
         const info = document.querySelector('.fish-info');
 
@@ -100,8 +102,13 @@ class Fish {
         //     aquarium.appendChild(this.element);
             this.element.style.left = `${this.x}px`;
             this.element.style.top = `${this.y}px`;
-            aquarium.appendChild(this.element);
+
+            // keeps click listeners working
+            if (!this.element.parentElement) {
+                aquarium.appendChild(this.element);
+            }
             this.swim();
+            // this.element.addEventListener('click',  this.handleFishClick)
         }
     }
 }
